@@ -1,0 +1,170 @@
+<?php
+
+namespace App\Filament\Resources\Eventos\Schemas;
+
+use Dom\Text;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\FileUpload;
+use Filament\Schemas\Components\Group;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Hidden;
+use Illuminate\Support\Facades\Auth;
+
+class EventoForm
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->columns(2) // <-- 1. Dividimos el formulario base en 2 columnas
+            ->components([
+
+                // ================= COLUMNA IZQUIERDA (50%) =================
+                Group::make()->schema([
+
+                    Section::make('Información del Evento')
+                        ->schema([
+                            TextInput::make('titulo')
+                                ->label('Título del Evento')
+                                ->required()
+                                ->columnSpanFull(),
+
+                            Grid::make(2)->schema([
+                                DatePicker::make('fecha_evento')
+                                    ->required()
+                                    ->label('Fecha del Evento'),
+
+                                TextInput::make('horario')
+                                    ->required()
+                                    ->placeholder('Ej: 10:00 AM - 01:00 PM'),
+                            ]),
+
+                            Grid::make(2)->schema([
+                                Select::make('categoria')
+                                    ->options([
+                                        'Talleres' => 'Talleres y Cursos',
+                                        'Cultural' => 'Cultural y Artístico',
+                                        'Social' => 'Responsabilidad Social',
+                                        'Deportes' => 'Deportes',
+                                        'Académico' => 'Académico',
+                                    ])
+                                    ->required()
+                                    ->searchable(),
+
+                                Select::make('departamento_id')
+                                    ->label('Departamento')
+                                    ->relationship('departamento', 'nombre')
+                                    ->default(fn() => Auth::user()?->departamento_id)
+                                    ->disabled(function () {
+                                        /** @var \App\Models\User $user */
+                                        $user = Auth::user();
+
+                                        return $user ? ! $user->hasRole('super_admin') : false;
+                                    })
+                                    ->dehydrated()
+                                    ->required(),
+
+                                TextInput::make('icono')
+                                    ->required()
+                                    ->placeholder('heroicon-m-star')
+                                    ->helperText('Nombre del icono (ej: heroicon-m-trophy)'),
+                            ]),
+
+                            // Moví la descripción aquí para que fluya con la info principal
+                            Textarea::make('descripcion')
+                                ->label('Descripción del Evento')
+                                ->required()
+                                ->rows(4)
+                                ->columnSpanFull(),
+                        ]),
+
+                    Section::make('Archivos y Multimedia')
+                        ->schema([
+                            FileUpload::make('imagen')
+                                ->label('Imagen de Portada')
+                                ->image()
+                                ->directory('eventos')
+                                ->disk('public')
+                                ->required()
+                                ->columnSpanFull(),
+
+                            Repeater::make('archivos')
+                                ->label('Añadir documentos relacionados o información adicional')
+                                ->relationship()
+                                ->schema([
+                                    Hidden::make('tipo')->default('documento'),
+                                    TextInput::make('nombre')
+                                        ->label('Nombre del Archivo o Enlace')
+                                        ->required()
+                                        ->placeholder('Ej: Programa del Evento'),
+                                    FileUpload::make('ruta')
+                                        ->label('Subir PDF')
+                                        ->acceptedFileTypes(['application/pdf'])
+                                        ->directory('convocatorias/documentos')
+                                        ->disk('public')
+                                        ->required()
+                                        ->columnSpanFull(),
+                                ])
+                                ->maxItems(3)
+                                ->addActionLabel('Adjuntar PDF')
+                                ->columnSpanFull(),
+
+                        ]),
+
+                ])->columnSpan(1), // <-- Termina columna izquierda
+
+                // ================= COLUMNA DERECHA (50%) =================
+                Group::make()->schema([
+
+                    Section::make('Ubicación y Mapa')
+                        ->schema([
+                            TextInput::make('ciudad')
+                                ->required()
+                                ->placeholder('Ej: Tuxtla Gutiérrez, Chiapas')
+                                ->prefixIcon('heroicon-m-map-pin'),
+
+                            TextInput::make('direccion')
+                                ->required()
+                                ->placeholder('Ej: Auditorio de los Constituyentes')
+                                ->prefixIcon('heroicon-m-building-office-2'),
+
+                            Textarea::make('mapa_iframe')
+                                ->label('Mapa de Google (Código de inserción)')
+                                ->rows(5) // Le di un poco más de altura para que el código grande quepa bien
+                                ->placeholder('<iframe src="https://www.google.com/maps/embed?..." ...></iframe>')
+                                ->helperText('Ve a Google Maps -> Busca el lugar -> Clic en "Compartir" -> "Insertar un mapa" -> "Copiar HTML" y pégalo aquí.')
+                                ->columnSpanFull(),
+                        ]),
+
+                    Section::make('Redes Sociales (Opcional)')
+                        ->schema([
+                            TextInput::make('link_facebook')
+                                ->label('Enlace de Facebook')
+                                ->url()
+                                ->prefix('FB'),
+
+                            TextInput::make('link_instagram')
+                                ->label('Enlace de Instagram')
+                                ->url()
+                                ->prefix('IG'),
+                        ])->collapsed(), // Lo mantuve colapsado para que no estorbe si no se usa
+
+                    Section::make('Visibilidad')
+                        ->schema([
+                            Toggle::make('activo')
+                                ->label('Evento Activo y Visible')
+                                ->default(true)
+                                ->onColor('success'),
+                        ]),
+
+                ])->columnSpan(1), // <-- Termina columna derecha
+
+            ]);
+    }
+}
