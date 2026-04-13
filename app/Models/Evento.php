@@ -15,6 +15,7 @@ class Evento extends Model
         'direccion',
         'mapa_iframe',
         'archivo_adjunto',
+        'link_inscripcion',
         'icono',
         'descripcion',
         'imagen',

@@ -1,6 +1,6 @@
 <x-layout title="Noticias y Eventos - SIRESU">
 
-    <section class="py-12 bg-gray-50 font-sans" x-data="{ activeTab: '{{ request('tab', 'noticias') }}' }">
+    <section class="relative z-10 py-12 bg-gray-50 font-sans" x-data="{ activeTab: '{{ request('tab', 'noticias') }}' }">
         <div class="container mx-auto px-4 lg:px-8">
 
             <div class="flex flex-col lg:flex-row gap-8 mb-8 items-center lg:items-end">
@@ -29,7 +29,7 @@
 
                 <input type="hidden" name="tab" :value="activeTab">
 
-                <aside class="w-full lg:w-1/4 flex flex-col gap-6 sticky top-24">
+                <aside class="w-full lg:w-1/4 flex flex-col gap-6 sticky top-24 z-20">
 
                     <div class="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex flex-col space-y-1">
                         <button type="button" @click="activeTab = 'noticias'"
@@ -130,7 +130,7 @@
                 </aside>
 
 
-                <div class="w-full lg:w-3/4 flex flex-col gap-6">
+                <div class="relative z-50 w-full lg:w-3/4 flex flex-col gap-6">
 
                     <div x-show="activeTab === 'noticias'" style="display: none;" x-transition>
                         @if ($noticias->count() > 0)

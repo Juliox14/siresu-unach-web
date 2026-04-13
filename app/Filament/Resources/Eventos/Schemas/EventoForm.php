@@ -82,6 +82,13 @@ class EventoForm
                                 ->required()
                                 ->rows(4)
                                 ->columnSpanFull(),
+
+                            TextInput::make('link_inscripcion')
+                                ->label('Enlace de Inscripción (Google Forms)')
+                                ->url()
+                                ->placeholder('https://forms.gle/...')
+                                ->helperText('Deja este campo vacío si el evento no requiere registro previo.')
+                                ->columnSpanFull(),
                         ]),
 
                     Section::make('Archivos y Multimedia')

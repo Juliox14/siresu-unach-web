@@ -1,12 +1,7 @@
 To Do
 
-- Mover lógica de creación de áreas para el directorio a el apartado de departamentos, para que al crear un departamento se cree un área automáticamente, y así evitar que se creen áreas sin departamentos asociados
-
-- Añadir botón de confirmar asistencia a eventos
-
-- Agregar al header envío directo con ids a secciones específicas
-
-- Corregir convocatorias en inicio
+<!-- Parcialmente completado  -->
+- Mover lógica de creación de áreas para el directorio a el apartado de departamentos, para que al crear un departamento se cree un área automáticamente, y así evitar que se creen áreas sin departamentos asociados 
 
 - Añadir filtros por departamento o categoría (Proyectos y programas, Integración Universitaria o Editorial) a Convocatorias, Eventos y Noticias
 
@@ -14,18 +9,23 @@ To Do
 
 - Hacer responsivo todo el sitio y corregir errores de diseño
 
-- Cambiar redes sociales, agregar tik tok, YouTube y quitar X
-
-- Hacer que la información del footer venga desde la base de datos (tablas ya existentes)
-
 - Añadir directorio completo SIRESU
 
 - Añadir Términos y condiciones, Transparencia y Aviso de privacidad
 
 - Crear el manual de usuario para el sistema de gestión de contenidos
 
-- Arreglar visualización de convocatorias
+<!-- - Arreglar visualización de convocatorias -->
 
+<!-- - Añadir botón de confirmar asistencia a eventos -->
+
+<!-- - Corregir convocatorias en inicio -->
+
+<!-- - Hacer que la información del footer venga desde la base de datos (tablas ya existentes) -->
+
+<!-- - Cambiar redes sociales, agregar tik tok, YouTube y quitar X -->
+
+<!-- - Agregar al header envío directo con ids a secciones específicas -->
 
 <!-- - Crear usuarios con permisos para cada departamento -->
 

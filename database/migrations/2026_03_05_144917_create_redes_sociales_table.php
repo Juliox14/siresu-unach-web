@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('redes_sociales', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('departamento_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('nombre');
             $table->string('url');
-            $table->foreignId('departamento_id')->nullable()->constrained('departamentos')->nullOnDelete();
+            $table->boolean('activo')->default(true);
+            $table->timestamps();
+
+            $table->unique(['departamento_id', 'nombre']);
         });
     }
 

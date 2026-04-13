@@ -19,6 +19,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        view()->composer(['components.footer', 'components.header'], function ($view) {
+            $view->with('redesSociales', \App\Models\RedSocial::whereNull('departamento_id')
+                ->where('activo', true)
+                ->get());
+        });
+
+        view()->composer('components.footer', function ($view) {
+            $view->with('infoSiresu', \App\Models\AcercaDe::first());
+        });
     }
 }

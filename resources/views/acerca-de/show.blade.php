@@ -2,78 +2,81 @@
 
     <section class="relative bg-white font-sans overflow-hidden p-20">
         <div class="container mx-auto px-4 relative z-10">
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
-                <div>
-                    <p class="text-[#EAB308] font-bold tracking-widest uppercase text-sm mb-2">Sobre Nosotros</p>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-[#001B3A] leading-tight">
-                        {{ $info->titulo_1 }} <br>
-                        <span class="text-transparent bg-clip-text bg-linear-to-r from-[#001B3A] to-blue-600">
-                            {{ $info->titulo_2 }}
-                        </span>
-                    </h2>
-                </div>
-                <div class="flex items-end justify-center">
-                    <div class="border-l-4 border-[#EAB308] pl-6">
-                        <p class="text-gray-600 text-lg leading-relaxed text-justify">
-                            {{ $info->descripcion_hero }}
-                        </p>
+            <div id="identidad">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
+                    <div>
+                        <p class="text-[#EAB308] font-bold tracking-widest uppercase text-sm mb-2">Sobre Nosotros</p>
+                        <h2 class="text-4xl md:text-5xl font-extrabold text-[#001B3A] leading-tight">
+                            {{ $info->titulo_1 }} <br>
+                            <span class="text-transparent bg-clip-text bg-linear-to-r from-[#001B3A] to-blue-600">
+                                {{ $info->titulo_2 }}
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="flex items-end justify-center">
+                        <div class="border-l-4 border-[#EAB308] pl-6">
+                            <p class="text-gray-600 text-lg leading-relaxed text-justify">
+                                {{ $info->descripcion_hero }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-                <div class="lg:col-span-5 relative">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
-                        <img src="{{ asset('storage/' . $info->imagen_principal) }}" alt="Imagen Principal"
-                            class="w-full h-auto object-cover transform hover:scale-105 transition duration-700">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+                            <img src="{{ asset('storage/' . $info->imagen_principal) }}" alt="Imagen Principal"
+                                class="w-full h-auto object-cover transform hover:scale-105 transition duration-700">
 
-                        <div class="absolute bottom-0 right-0 bg-white p-6 rounded-tl-3xl shadow-lg">
-                            <div class="flex items-center gap-3">
-                                <img src="{{ asset('images/logo-siresu-color.png') }}" alt="Logo"
-                                    class="h-12 w-auto">
-                                <div>
-                                    <p class="text-[#001B3A] font-bold text-lg leading-none">{{ $info->badge_titulo }}
-                                    </p>
-                                    <p class="text-[#EAB308] font-bold text-sm uppercase tracking-wide">
-                                        {{ $info->badge_subtitulo }}</p>
+                            <div class="absolute bottom-0 right-0 bg-white p-6 rounded-tl-3xl shadow-lg">
+                                <div class="flex items-center gap-3">
+                                    <img src="{{ asset('images/logo-siresu-color.png') }}" alt="Logo"
+                                        class="h-12 w-auto">
+                                    <div>
+                                        <p class="text-[#001B3A] font-bold text-lg leading-none">
+                                            {{ $info->badge_titulo }}
+                                        </p>
+                                        <p class="text-[#EAB308] font-bold text-sm uppercase tracking-wide">
+                                            {{ $info->badge_subtitulo }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div
+                            class="absolute -bottom-6 -left-6 w-full h-full border-2 border-[#EAB308] rounded-2xl -z-10">
+                        </div>
                     </div>
-                    <div class="absolute -bottom-6 -left-6 w-full h-full border-2 border-[#EAB308] rounded-2xl -z-10">
-                    </div>
-                </div>
 
-                <div class="lg:col-span-7 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold text-[#001B3A] mb-6">
-                        {{ $info->titulo_puntos }}
-                    </h3>
+                    <div class="lg:col-span-7 flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-[#001B3A] mb-6">
+                            {{ $info->titulo_puntos }}
+                        </h3>
 
-                    <div class="space-y-8">
-                        @if ($info->puntos_clave)
-                            @foreach ($info->puntos_clave as $punto)
-                                <div class="flex items-start group">
-                                    <div class="shrink-0 mt-1">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-[#EAB308]/20 flex items-center justify-center group-hover:bg-[#EAB308] transition-colors duration-300">
-                                            <x-dynamic-component :component="$punto['icono']" class="w-4 h-4 text-[#EAB308]" />
+                        <div class="space-y-8">
+                            @if ($info->puntos_clave)
+                                @foreach ($info->puntos_clave as $punto)
+                                    <div class="flex items-start group">
+                                        <div class="shrink-0 mt-1">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-[#EAB308]/20 flex items-center justify-center group-hover:bg-[#EAB308] transition-colors duration-300">
+                                                <x-dynamic-component :component="$punto['icono']" class="w-4 h-4 text-[#EAB308]" />
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-lg font-bold text-[#001B3A]">{{ $punto['titulo'] }}</h4>
+                                            <p class="text-gray-600 mt-2 leading-relaxed text-justify">
+                                                {{ $punto['descripcion'] }}
+                                            </p>
                                         </div>
                                     </div>
-                                    <div class="ml-4">
-                                        <h4 class="text-lg font-bold text-[#001B3A]">{{ $punto['titulo'] }}</h4>
-                                        <p class="text-gray-600 mt-2 leading-relaxed text-justify">
-                                            {{ $punto['descripcion'] }}
-                                        </p>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+            <div id="mision-vision-valores" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
                 <div
                     class="bg-[#001B3A] p-8 rounded-xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
                     <div class="absolute top-0 left-0 w-full h-1 bg-[#EAB308]"></div>
@@ -116,7 +119,7 @@
                 </div>
             </div>
 
-            <div>
+            <div id="estructura-contacto">
                 <div class="text-center mb-10">
                     <div class="inline-block mb-2">
                         <span

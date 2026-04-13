@@ -21,7 +21,7 @@
 
     <x-header />
 
-    <main class="grow relative z-0">
+    <main class="grow">
         {{ $slot }}
     </main>
 

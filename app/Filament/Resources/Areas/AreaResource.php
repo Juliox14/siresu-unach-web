@@ -21,6 +21,11 @@ class AreaResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nombre';
 
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return AreaForm::configure($schema);
@@ -42,7 +47,6 @@ class AreaResource extends Resource
     {
         return [
             'index' => ListAreas::route('/'),
-            'create' => CreateArea::route('/create'),
             'edit' => EditArea::route('/{record}/edit'),
         ];
     }
