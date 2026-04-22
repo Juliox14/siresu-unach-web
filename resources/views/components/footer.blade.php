@@ -63,9 +63,9 @@
                 Sitio desarrollado por Julian Castro, estudiante de la FCA Campus I - UNACH. <br>
             </div>
             <div class="flex flex-wrap justify-center gap-6">
-                <a href="#" class="hover:text-white transition-colors">Términos y Condiciones de Uso</a>
-                <a href="#" class="hover:text-white transition-colors">Transparencia</a>
-                <a href="#" class="hover:text-white transition-colors">Avisos de privacidad</a>
+                <a href="{{ route('legal.terminos') }}" class="hover:text-white transition-colors">Términos y Condiciones de Uso</a>
+                <a href="{{ route('legal.transparencia') }}" class="hover:text-white transition-colors">Transparencia</a>
+                <a href="{{ route('legal.privacidad') }}" class="hover:text-white transition-colors">Avisos de privacidad</a>
             </div>
         </div>
 

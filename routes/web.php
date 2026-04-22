@@ -24,3 +24,7 @@ Route::get('/noticias/{slug}', [NoticiaController::class, 'show'])->name('notici
 Route::get('/departamentos/{slug}', [DepartamentoController::class, 'show'])->name('departamentos.show');
 
 Route::get('/convocatorias/{convocatoria}', [ConvocatoriaController::class, 'show'])->name('convocatorias.show');
+
+Route::view('/terminos-y-condiciones', 'legal.terminos')->name('legal.terminos');
+Route::view('/transparencia', 'legal.transparencia')->name('legal.transparencia');
+Route::view('/aviso-de-privacidad', 'legal.privacidad')->name('legal.privacidad');

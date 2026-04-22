@@ -32,29 +32,17 @@ class InicioController extends Controller
             ->orderBy('fecha_evento', 'asc')
             ->take(8)
             ->get();
-            
 
 
-        $convocatoriasBD = Convocatoria::where('activo', true)
-            ->whereDate('fecha_limite', '>=', now()) 
+
+        $convocatorias = Convocatoria::where('activo', true)
+            ->whereDate('fecha_limite', '>=', now())
             ->orderBy('fecha_limite', 'asc')
             ->take(6)
             ->get();
 
-        $convocatorias = $convocatoriasBD->map(function ($item) {
-            $fecha = Carbon::parse($item->fecha_limite);
-            
-            return [
-                'titulo' => $item->titulo,
-                'categoria' => $item->categoria,
-                'estado' => $item->estado,
-                'mes_limite' => strtoupper($fecha->translatedFormat('M')),
-                'dia_limite' => $fecha->format('d'),
-                'fecha_completa' => $fecha->translatedFormat('d \d\e F, Y'), 
-                'imagen' => asset('storage/' . $item->imagen),
-                'slug' => $item->slug,
-            ];
-        });
+        $instalacionDestacada = Instalacion::where('es_destacado', true)->first();
+        $aliados = Aliado::where('activo', true)->get();
 
         $instalacionDestacada = Instalacion::where('es_destacado', true)->first();
 

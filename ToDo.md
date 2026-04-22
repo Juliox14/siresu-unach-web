@@ -3,17 +3,17 @@ To Do
 <!-- Parcialmente completado  -->
 - Mover lógica de creación de áreas para el directorio a el apartado de departamentos, para que al crear un departamento se cree un área automáticamente, y así evitar que se creen áreas sin departamentos asociados 
 
-- Añadir filtros por departamento o categoría (Proyectos y programas, Integración Universitaria o Editorial) a Convocatorias, Eventos y Noticias
-
-- Añadir convocatorias a la página de noticias y eventos
-
 - Hacer responsivo todo el sitio y corregir errores de diseño
 
 - Añadir directorio completo SIRESU
 
-- Añadir Términos y condiciones, Transparencia y Aviso de privacidad
-
 - Crear el manual de usuario para el sistema de gestión de contenidos
+
+<!-- - Añadir Términos y condiciones, Transparencia y Aviso de privacidad -->
+
+<!-- - Añadir filtros por departamento o categoría (Proyectos y programas, Integración Universitaria o Editorial) a Convocatorias, Eventos y Noticias
+
+- Añadir convocatorias a la página de noticias y eventos -->
 
 <!-- - Arreglar visualización de convocatorias -->
 

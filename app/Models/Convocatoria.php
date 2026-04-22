@@ -18,7 +18,7 @@ class Convocatoria extends Model
         'mostrar_pdf_visualizador',
         'slug',
     ];
-    
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -38,5 +38,28 @@ class Convocatoria extends Model
     public function archivos()
     {
         return $this->morphMany(Archivo::class, 'fileable');
+    }
+
+    public function getImagenUrlAttribute()
+    {
+        return asset('storage/' . $this->imagen);
+    }
+
+    // Atributo para el Mes (ej: ENE)
+    public function getMesLimiteAttribute()
+    {
+        return strtoupper($this->fecha_limite->translatedFormat('M'));
+    }
+
+    // Atributo para el Día (ej: 15)
+    public function getDiaLimiteAttribute()
+    {
+        return $this->fecha_limite->format('d');
+    }
+
+    // Atributo para la Fecha Completa
+    public function getFechaFormateadaAttribute()
+    {
+        return $this->fecha_limite->translatedFormat('d \d\e F, Y');
     }
 }
