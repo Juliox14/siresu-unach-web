@@ -134,8 +134,9 @@
                 </div>
             </li>
             <li><a href="{{ route('noticias.index') }}"
-                    class="hover:text-yellow-400 transition pb-1 border-b-2 border-transparent hover:border-yellow-400">Noticias
-                    y Eventos</a></li>
+                    class="hover:text-yellow-400 transition pb-1 border-b-2 border-transparent hover:border-yellow-400">Noticias,
+                    Eventos
+                    y Convocatorias </a></li>
 
             <li><a href="{{ route('instalaciones.index') }}"
                     class="hover:text-yellow-400 transition pb-1 border-b-2 border-transparent hover:border-yellow-400">Instalaciones</a>

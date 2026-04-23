@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Eventos\Schemas;
 
-use Dom\Text;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -16,6 +15,8 @@ use Filament\Schemas\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Hidden;
 use Illuminate\Support\Facades\Auth;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 
 class EventoForm
 {
@@ -70,10 +71,56 @@ class EventoForm
                                     ->dehydrated()
                                     ->required(),
 
-                                TextInput::make('icono')
-                                    ->required()
-                                    ->placeholder('heroicon-m-star')
-                                    ->helperText('Nombre del icono (ej: heroicon-m-trophy)'),
+                                // LÓGICA DE ICONOS MEJORADA
+                                // Label Campo Icono
+
+
+                                Group::make([
+                                    Grid::make(2)->schema([
+                                        Select::make('estilo_icono')
+                                            ->label('Estilo del Icono')
+                                            ->options([
+                                                'o' => 'Outline (Líneas)',
+                                                's' => 'Solid (Relleno)',
+                                                'm' => 'Mini (Pequeño)',
+                                            ])
+                                            ->default('o')
+                                            ->live() 
+                                            ->afterStateHydrated(function (Select $component, ?\Illuminate\Database\Eloquent\Model $record) {
+                                                if ($record && $record->icono) {
+                                                    preg_match('/^heroicon-([osm])-/', $record->icono, $matches);
+                                                    $component->state($matches[1] ?? 'o');
+                                                }
+                                            })
+                                            ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
+                                                if ($nombre = $get('nombre_icono')) {
+                                                    $set('icono', 'heroicon-' . $state . '-' . $nombre);
+                                                }
+                                            }),
+
+                                        TextInput::make('nombre_icono')
+                                            ->label('Nombre del icono')
+                                            ->placeholder('Busca en heroicons.com')
+                                            ->live(onBlur: true)
+                                            ->afterStateHydrated(function (TextInput $component, ?\Illuminate\Database\Eloquent\Model $record) {
+                                                if ($record && $record->icono) {
+                                                    preg_match('/^heroicon-[osm]-(.+)$/', $record->icono, $matches);
+                                                    $component->state($matches[1] ?? str_replace('heroicon-o-', '', $record->icono));
+                                                }
+                                            })
+                                            ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
+                                                $state = str_replace(['heroicon-o-', 'heroicon-s-', 'heroicon-m-'], '', $state ?? '');
+                                                $set('nombre_icono', $state); 
+                                                
+                                                $estilo = $get('estilo_icono') ?? 'o';
+                                                $set('icono', $state ? 'heroicon-' . $estilo . '-' . $state : null);
+                                            }),
+                                    ]),
+
+                                    // Campo oculto real
+                                    Hidden::make('icono')
+                                        ->required(),
+                                ])->columnSpanFull(),
                             ]),
 
                             // Moví la descripción aquí para que fluya con la info principal

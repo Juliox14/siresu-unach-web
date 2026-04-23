@@ -17,10 +17,7 @@ class InstalacionsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('imagen_portada')
-                    ->label('Portada')
-                    ->circular(),
-
+                
                 TextColumn::make('nombre')
                     ->searchable()
                     ->sortable()

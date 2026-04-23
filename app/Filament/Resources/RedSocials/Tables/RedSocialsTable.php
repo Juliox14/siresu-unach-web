@@ -56,10 +56,10 @@ class RedSocialsTable
                     ->relationship('departamento', 'nombre')
                     ->label('Filtrar por Departamento'),
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),

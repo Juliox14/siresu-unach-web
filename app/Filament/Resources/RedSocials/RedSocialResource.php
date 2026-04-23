@@ -15,15 +15,18 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use UnitEnum;
+
 
 class RedSocialResource extends Resource
 {
     protected static ?string $model = RedSocial::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $modelLabel = 'Red Social';
     protected static ?string $pluralModelLabel = 'Redes Sociales';
+
+    protected static string | UnitEnum | null $navigationGroup = 'Difusión y Contenido';
 
     protected static ?string $recordTitleAttribute = 'nombre';
 

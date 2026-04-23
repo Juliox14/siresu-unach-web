@@ -59,4 +59,16 @@ class AcercaDeResource extends Resource
             'edit' => EditAcercaDe::route('/{record}/edit'),
         ];
     }
+
+    public static function canCreate(): bool
+    {
+        // Esto oculta el botón de crear si ya existe 1 registro en la base de datos
+        return static::getModel()::count() === 0;
+    }
+
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        // Esto evita que alguien borre el único registro que existe
+        return false;
+    }
 }

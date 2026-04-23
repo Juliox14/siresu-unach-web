@@ -2,6 +2,8 @@
 
     <section class="relative bg-white font-sans overflow-hidden p-20">
         <div class="container mx-auto px-4 relative z-10">
+
+            {{-- IDENTIDAD --}}
             <div id="identidad">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-20">
                     <div>
@@ -23,6 +25,8 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
+
+                    {{-- Imagen principal --}}
                     <div class="lg:col-span-5 relative">
                         <div class="relative rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
                             <img src="{{ asset('storage/' . $info->imagen_principal) }}" alt="Imagen Principal"
@@ -37,7 +41,8 @@
                                             {{ $info->badge_titulo }}
                                         </p>
                                         <p class="text-[#EAB308] font-bold text-sm uppercase tracking-wide">
-                                            {{ $info->badge_subtitulo }}</p>
+                                            {{ $info->badge_subtitulo }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -47,6 +52,7 @@
                         </div>
                     </div>
 
+                    {{-- Puntos clave --}}
                     <div class="lg:col-span-7 flex flex-col justify-center">
                         <h3 class="text-2xl font-bold text-[#001B3A] mb-6">
                             {{ $info->titulo_puntos }}
@@ -55,13 +61,25 @@
                         <div class="space-y-8">
                             @if ($info->puntos_clave)
                                 @foreach ($info->puntos_clave as $punto)
+                                    @php
+                                        $iconoFinal = 'heroicon-o-check';
+                                        if (!empty($punto['icono'])) {
+                                            try {
+                                                svg($punto['icono']);
+                                                $iconoFinal = $punto['icono'];
+                                            } catch (\Throwable $e) {
+                                            }
+                                        }
+                                    @endphp
+
                                     <div class="flex items-start group">
-                                        <div class="shrink-0 mt-1">
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-[#EAB308]/20 flex items-center justify-center group-hover:bg-[#EAB308] transition-colors duration-300">
-                                                <x-dynamic-component :component="$punto['icono']" class="w-4 h-4 text-[#EAB308]" />
-                                            </div>
+                                        {{-- Ícono --}}
+                                        <div
+                                            class="shrink-0 mt-1 w-8 h-8 rounded-full bg-[#EAB308]/20 flex items-center justify-center group-hover:bg-[#EAB308] transition-colors duration-300">
+                                            <x-dynamic-component :component="$iconoFinal" class="w-4 h-4 text-[#EAB308]" />
                                         </div>
+
+                                        {{-- Texto --}}
                                         <div class="ml-4">
                                             <h4 class="text-lg font-bold text-[#001B3A]">{{ $punto['titulo'] }}</h4>
                                             <p class="text-gray-600 mt-2 leading-relaxed text-justify">
@@ -73,10 +91,14 @@
                             @endif
                         </div>
                     </div>
+
                 </div>
             </div>
 
+            {{-- MISIÓN, VISIÓN Y VALORES --}}
             <div id="mision-vision-valores" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+
+                {{-- Misión --}}
                 <div
                     class="bg-[#001B3A] p-8 rounded-xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
                     <div class="absolute top-0 left-0 w-full h-1 bg-[#EAB308]"></div>
@@ -88,6 +110,7 @@
                     </div>
                 </div>
 
+                {{-- Visión --}}
                 <div
                     class="bg-[#EAB308] p-8 rounded-xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
                     <div class="absolute top-0 left-0 w-full h-1 bg-[#001B3A]"></div>
@@ -98,6 +121,7 @@
                     </div>
                 </div>
 
+                {{-- Valores --}}
                 <div
                     class="bg-[#001B3A] p-8 rounded-xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
                     <div class="absolute top-0 left-0 w-full h-1 bg-[#EAB308]"></div>
@@ -106,8 +130,8 @@
                         @if ($info->valores)
                             @foreach ($info->valores as $valor)
                                 <li class="flex items-center">
-                                    <span
-                                        class="w-1.5 h-1.5 bg-[#EAB308] rounded-full mr-2"></span>{{ $valor['valor'] }}
+                                    <span class="w-1.5 h-1.5 bg-[#EAB308] rounded-full mr-2"></span>
+                                    {{ $valor['valor'] }}
                                 </li>
                             @endforeach
                         @endif
@@ -117,8 +141,10 @@
                         <span class="text-9xl font-bold">03</span>
                     </div>
                 </div>
+
             </div>
 
+            {{-- ESTRUCTURA Y CONTACTO --}}
             <div id="estructura-contacto">
                 <div class="text-center mb-10">
                     <div class="inline-block mb-2">
@@ -129,6 +155,8 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                    {{-- Organigrama --}}
                     <div class="lg:col-span-8">
                         <div
                             class="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 overflow-hidden relative group">
@@ -141,7 +169,10 @@
                         </div>
                     </div>
 
+                    {{-- Contacto y enlaces --}}
                     <div class="lg:col-span-4 space-y-6 sticky top-24">
+
+                        {{-- Ubicación --}}
                         <div class="bg-[#001B3A] text-white p-6 rounded-2xl shadow-xl relative overflow-hidden">
                             <div
                                 class="absolute -top-10 -right-10 w-32 h-32 bg-[#EAB308] rounded-full mix-blend-multiply filter blur-2xl opacity-20">
@@ -158,8 +189,9 @@
                                     <x-heroicon-m-phone class="w-4 h-4 mr-2 text-[#EAB308]" />
                                     <span>{{ $info->telefono }}
                                         @if ($info->extension)
-                                            <span class="text-xs bg-[#EAB308]/20 text-[#EAB308] px-1 rounded ml-1">Ext.
-                                                {{ $info->extension }}</span>
+                                            <span class="text-xs bg-[#EAB308]/20 text-[#EAB308] px-1 rounded ml-1">
+                                                Ext. {{ $info->extension }}
+                                            </span>
                                         @endif
                                     </span>
                                 </p>
@@ -171,6 +203,7 @@
                             </div>
                         </div>
 
+                        {{-- Enlaces rápidos --}}
                         <div class="bg-white border border-gray-100 p-6 rounded-2xl shadow-lg">
                             <h3 class="text-lg font-bold text-[#001B3A] mb-4 flex items-center">
                                 <x-heroicon-m-link class="w-5 h-5 mr-2 text-[#EAB308]" /> Enlaces Rápidos
@@ -178,20 +211,35 @@
                             <div class="space-y-3">
                                 @if ($info->links_rapidos)
                                     @foreach ($info->links_rapidos as $link)
+                                        @php
+                                            $iconoLink = 'heroicon-o-link';
+                                            if (!empty($link['icono'])) {
+                                                try {
+                                                    svg($link['icono']);
+                                                    $iconoLink = $link['icono'];
+                                                } catch (\Throwable $e) {
+                                                }
+                                            }
+                                        @endphp
+
                                         <a href="{{ $link['url'] }}" target="_blank"
                                             class="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#001B3A] group transition-colors duration-300">
-                                            <span
-                                                class="text-sm font-medium text-gray-700 group-hover:text-white">{{ $link['texto'] }}</span>
-                                            <x-dynamic-component :component="$link['icono']"
+                                            <span class="text-sm font-medium text-gray-700 group-hover:text-white">
+                                                {{ $link['texto'] }}
+                                            </span>
+                                            <x-dynamic-component :component="$iconoLink"
                                                 class="w-4 h-4 text-gray-400 group-hover:text-white" />
                                         </a>
                                     @endforeach
                                 @endif
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
+
 </x-layout>

@@ -1,13 +1,12 @@
 To Do
 
-<!-- Parcialmente completado  -->
-- Mover lógica de creación de áreas para el directorio a el apartado de departamentos, para que al crear un departamento se cree un área automáticamente, y así evitar que se creen áreas sin departamentos asociados 
-
 - Hacer responsivo todo el sitio y corregir errores de diseño
 
 - Añadir directorio completo SIRESU
 
-- Crear el manual de usuario para el sistema de gestión de contenidos
+<!-- - Crear el manual de usuario para el sistema de gestión de contenidos -->
+
+<!-- - Mover lógica de creación de áreas para el directorio a el apartado de departamentos, para que al crear un departamento se cree un área automáticamente, y así evitar que se creen áreas sin departamentos asociados  -->
 
 <!-- - Añadir Términos y condiciones, Transparencia y Aviso de privacidad -->
 

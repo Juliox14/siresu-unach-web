@@ -10,6 +10,12 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Illuminate\Support\HtmlString;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Group;
+use Filament\Forms\Components\Hidden;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 
 class AcercaDeForm
 {
@@ -56,11 +62,53 @@ class AcercaDeForm
                                     ->schema([
                                         TextInput::make('titulo')->required(),
                                         Textarea::make('descripcion')->rows(2)->required(),
-                                        TextInput::make('icono')
-                                            ->required()
-                                            ->label('Código del Icono')
-                                            ->placeholder('heroicon-o-academic-cap')
-                                            ->helperText(new HtmlString('Busca el nombre en <a href="https://heroicons.com" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: bold;">heroicons.com</a> y antepon "heroicon-o-" (outline) o "heroicon-s-" (solid).')),
+                                        Group::make([
+                                            Grid::make(2)->schema([
+                                                Select::make('estilo_icono')
+                                                    ->label('Estilo del Icono')
+                                                    ->options([
+                                                        'o' => 'Outline (Líneas)',
+                                                        's' => 'Solid (Relleno)',
+                                                        'm' => 'Mini (Pequeño)',
+                                                    ])
+                                                    ->default('o')
+                                                    ->live()
+                                                    ->afterStateHydrated(function (Select $component, ?\Illuminate\Database\Eloquent\Model $record) {
+                                                        if ($record && $record->icono) {
+                                                            preg_match('/^heroicon-([osm])-/', $record->icono, $matches);
+                                                            $component->state($matches[1] ?? 'o');
+                                                        }
+                                                    })
+                                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
+                                                        if ($nombre = $get('nombre_icono')) {
+                                                            $set('icono', 'heroicon-' . $state . '-' . $nombre);
+                                                        }
+                                                    }),
+
+                                                TextInput::make('nombre_icono')
+                                                    ->label('Nombre del icono')
+                                                    ->default('icono')
+                                                    ->placeholder('Busca en heroicons.com')
+                                                    ->live(onBlur: true)
+                                                    ->afterStateHydrated(function (TextInput $component, ?\Illuminate\Database\Eloquent\Model $record) {
+                                                        if ($record && $record->icono) {
+                                                            preg_match('/^heroicon-[osm]-(.+)$/', $record->icono, $matches);
+                                                            $component->state($matches[1] ?? str_replace('heroicon-o-', '', $record->icono));
+                                                        }
+                                                    })
+                                                    ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
+                                                        $state = str_replace(['heroicon-o-', 'heroicon-s-', 'heroicon-m-'], '', $state ?? '');
+                                                        $set('nombre_icono', $state);
+
+                                                        $estilo = $get('estilo_icono') ?? 'o';
+                                                        $set('icono', $state ? 'heroicon-' . $estilo . '-' . $state : null);
+                                                    }),
+                                            ]),
+
+                                            // Campo oculto real
+                                            Hidden::make('icono')
+                                                ->required(),
+                                        ])->columnSpanFull(),
                                     ])
                                     ->columns(1),
 

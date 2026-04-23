@@ -14,8 +14,20 @@
                 <p style="margin-top: 1rem; font-size: 1rem; line-height: 1.6; color: #4B5563; max-width: 56rem;">
                     Este es el <b>Panel de Administración del portal web de SIRESU</b>. 
                     <br><br>
-                    Aquí tienes el control total para gestionar el contenido dinámico de la página. Utiliza el menú lateral izquierdo para navegar entre las diferentes secciones: podrás publicar nuevas <b>Noticias</b>, agendar próximos <b>Eventos</b>, actualizar la información del <b>Directorio</b> institucional, y administrar las <b>Convocatorias</b> y <b>Aliados</b>. 
-                    <br><br>
+                    
+                    @if (auth()->user()->hasRole('super_admin'))
+                        Como Administrador, tienes el control total sobre la configuración y estructura de la plataforma. Utiliza el menú lateral izquierdo para:
+                        <ul style="margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 1.5rem; list-style-type: disc;">
+                            <li><b>Contenido:</b> Publicar Noticias, agendar Eventos y gestionar Convocatorias.</li>
+                            <li><b>Configuración:</b> Modificar las imágenes de Inicio (Hero) y la sección Acerca de.</li>
+                            <li><b>Catálogos y Directorio:</b> Actualizar Departamentos, Áreas, Instalaciones, Enlaces Rápidos y el personal del Directorio Institucional.</li>
+                            <li><b>Administración:</b> Dar de alta nuevos usuarios y asignar roles y permisos.</li>
+                        </ul>
+                    @else
+                        Aquí tienes el control para gestionar el contenido dinámico de la página. Utiliza el menú lateral izquierdo para navegar entre las diferentes secciones: podrás publicar nuevas <b>Noticias</b>, agendar próximos <b>Eventos</b> y administrar las <b>Convocatorias</b>.
+                        <br><br>
+                    @endif
+
                     Cualquier cambio que realices y guardes aquí, se reflejará automáticamente en la página web pública.
                 </p>
             </div>

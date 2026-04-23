@@ -13,7 +13,8 @@ class ListAcercaDes extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->hidden(fn () => static::getModel()::count() > 0),            
         ];
     }
 }

@@ -72,7 +72,7 @@
                         
                         <div class="mt-8 flex flex-col gap-6">
                             @forelse($otrasNoticias as $otra)
-                                <a href="{{ route('noticias.show', $otra->slug) }}" class="group flex gap-4 items-center p-3 -mx-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-300">
+                                <a href="{{ route('noticias-eventos.show-noticia', $otra->slug) }}"" class="group flex gap-4 items-center p-3 -mx-3 rounded-xl hover:bg-white hover:shadow-md transition-all duration-300">
                                     
                                     <div class="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-gray-200">
                                         <img src="{{ asset('storage/' . $otra->imagen_portada) }}" alt="{{ $otra->titulo }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">

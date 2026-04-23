@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Filament\Forms\Components\Field;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('components.footer', function ($view) {
             $view->with('infoSiresu', \App\Models\AcercaDe::first());
+        });
+
+        Field::configureUsing(function (Field $component) {
+            if ($component->getName() === 'guard_name') {
+                $component->hidden(); // Lo oculta visualmente del formulario
+            }
         });
     }
 }

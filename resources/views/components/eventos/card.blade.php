@@ -32,7 +32,19 @@
         </div>
 
         <div class="flex items-center text-[#EAB308] mt-2 pt-2 border-t border-gray-100">
-            <x-dynamic-component :component="$evento->icono ?? 'heroicon-o-calendar'" class="w-4 h-4 mr-1" />
+            @php
+                $iconoFinal = 'heroicon-o-calendar'; // Icono predeterminado
+
+                if (!empty($evento->icono)) {
+                    try {
+                        svg($evento->icono);
+                        $iconoFinal = $evento->icono;
+                    } catch (\Throwable $e) {
+                        // Si el icono no es válido, se queda el predeterminado.
+                    }
+                }
+            @endphp
+            <x-dynamic-component :component="$iconoFinal" class="w-4 h-4 mr-1" />
             <span class="text-xs font-bold uppercase tracking-wide">{{ $evento->categoria }}</span>
         </div>
     </div>
