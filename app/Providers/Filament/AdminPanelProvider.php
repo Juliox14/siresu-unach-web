@@ -63,6 +63,11 @@ class AdminPanelProvider extends PanelProvider
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ])
             ->navigationGroups([
+
+                NavigationGroup::make()
+                    ->label('Header')
+                    ->icon('heroicon-o-computer-desktop'),
+                
                 // 1. El que pongas primero, saldrá hasta arriba
                 NavigationGroup::make()
                     ->label('Página de Inicio')
@@ -86,6 +91,8 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Seguridad')
                     ->icon('heroicon-o-shield-check'),
+                
+                
             ]);
     }
 }

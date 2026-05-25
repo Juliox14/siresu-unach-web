@@ -48,7 +48,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="#"
+            <a href="{{ route('noticias.index') }}"
                 class="inline-flex items-center text-[#FCF4C3] hover:text-white font-medium transition-colors border-b border-[#EAB308] pb-0.5 hover:border-white text-shadow-gold">
                 Ver todas las convocatorias
                 <x-heroicon-m-arrow-right class="w-4 h-4 ml-2" />

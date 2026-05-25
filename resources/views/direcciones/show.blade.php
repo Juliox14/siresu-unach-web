@@ -52,7 +52,7 @@
                                     </div>
                                 @else
                                     <a
-                                        href="{{ route('departamentos.show', $depto->slug) }}" class="block px-6 py-4 bg-transparent rounded-2xl text-gray-600 font-semibold text-md hover:bg-gray-50 hover:text-[#001B3A] transition-colors border border-transparent hover:border-gray-100">
+                                        href="{{ route('direcciones.show', $depto->slug) }}" class="block px-6 py-4 bg-transparent rounded-2xl text-gray-600 font-semibold text-md hover:bg-gray-50 hover:text-[#001B3A] transition-colors border border-transparent hover:border-gray-100">
                                         {{ $depto->nombre }}
                                     </a>
                                 @endif

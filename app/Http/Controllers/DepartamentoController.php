@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
-use Illuminate\Http\Request;
 
 class DepartamentoController extends Controller
 {
@@ -18,6 +17,6 @@ class DepartamentoController extends Controller
         $eventos = $departamento->eventos()->latest('created_at')->get(); 
         $convocatorias = $departamento->convocatorias()->latest('created_at')->get();
 
-        return view('departamentos.show', compact('departamento', 'noticias', 'eventos', 'convocatorias'));
+        return view('direcciones.show', compact('departamento', 'noticias', 'eventos', 'convocatorias'));
     }
 }

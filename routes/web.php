@@ -21,7 +21,7 @@ Route::get('/instalaciones', [InstalacionController::class, 'index'])->name('ins
 
 Route::get('/noticias/{slug}', [NoticiaController::class, 'show'])->name('noticias-eventos.show-noticia');
 
-Route::get('/departamentos/{slug}', [DepartamentoController::class, 'show'])->name('departamentos.show');
+Route::get('/direcciones/{slug}', [DepartamentoController::class, 'show'])->name('direcciones.show');
 
 Route::get('/convocatorias/{convocatoria}', [ConvocatoriaController::class, 'show'])->name('convocatorias.show');
 
