@@ -19,6 +19,10 @@ class EnlaceRapidoResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'titulo';
 
+    protected static ?string $modelLabel = 'Enlace Rápido';
+    protected static ?string $pluralModelLabel = 'Enlaces Rápidos';
+
+
     protected static string | UnitEnum | null $navigationGroup = 'Página de Inicio';
 
     public static function form(Schema $schema): Schema

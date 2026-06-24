@@ -1,31 +1,43 @@
 <x-layout :title="'Secretaría de Identidad y Responsabilidad Social Universitaria'">
-    
-    @if ($heroes && $heroes->isNotEmpty())
-        <x-inicio.hero :heroes="$heroes" />
-    @else
-        <p>No hay contenido configurado para el Hero.</p>
-    @endif
 
-    <x-inicio.enlaces-rapidos :enlaces="$enlaces" />
+    <x-page-banner titulo="Secretaría de Identidad y Responsabilidad Social Universitaria"
+        descripcion="Promovemos el desarrollo, el bienestar y la comunicación efectiva de nuestra comunidad universitaria."
+        :isHome="true" :redes="\App\Models\RedSocial::all()" />
 
-    
-        <x-convocatorias.section :convocatorias="$convocatorias" />
-    
+    {{-- Contenedor que sube sobre el banner con border-radius superior --}}
+    <div
+        class="relative flex flex-col gap-12 z-20 -mt-10 md:-mt-16 bg-white rounded-t-[3rem] md:rounded-t-[4rem] pt-8 px-24 pb-20 font-poppins shadow-xl">
 
-    @if ($eventos && $eventos->isNotEmpty())
-        <x-eventos.calendario-section :eventos="$eventos" />
-    @else
-        <p class="text-center text-gray-500 py-8">No hay eventos programados en este momento.</p>
-    @endif
+        <x-inicio.enlaces-rapidos :enlaces="$enlaces" />
 
-    @if ($instalacionDestacada)
-        <x-inicio.instalacion-destacada :instalacionDestacada="$instalacionDestacada" />
-    @endif
 
-    @if ($noticias && $noticias->isNotEmpty())
-        <x-noticias.section :noticias="$noticias" />
-    @else
-        <p class="text-center text-gray-500 py-8">No hay noticias o eventos disponibles en este momento.</p>
-    @endif
+        <div class="pt-4">
+            <x-convocatorias.section :convocatorias="$convocatorias" />
+        </div>
+
+
+        @if ($eventos && $eventos->isNotEmpty())
+            <x-eventos.calendario-section :eventos="$eventos" />
+        @else
+            <p class="text-center text-unach-gris-texto opacity-70 py-8">No hay eventos programados en este momento.
+            </p>
+        @endif
+
+
+        @if ($instalacionDestacada)
+            <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+                <x-inicio.instalacion-destacada :instalacionDestacada="$instalacionDestacada" />
+            </div>
+        @endif
+
+        @if ($noticias && $noticias->isNotEmpty())
+            <x-noticias.section :noticias="$noticias" />
+        @else
+            <p class="text-center text-unach-gris-texto opacity-70 py-8">No hay noticias disponibles en este momento.
+            </p>
+        @endif
+
+    </div>
+    </div>
 
 </x-layout>

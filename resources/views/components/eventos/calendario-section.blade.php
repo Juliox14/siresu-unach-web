@@ -1,48 +1,62 @@
-@props(['eventos']) {{-- Recibimos los datos del controlador --}}
+@props(['eventos'])
 
-<style>
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+<section class="font-sans px-4 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-gray-100 pb-5 gap-4">
+        <div>
+            <span class="bg-unach-azul/10 text-unach-azul-oscuro text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Agenda Institucional</span>
+            <h2 class="text-2xl md:text-3xl font-bold text-unach-azul-oscuro tracking-tight font-heading mt-2">Eventos Próximos</h2>
+        </div>
+        <a href="{{ route('noticias.index') ?? '#' }}" class="hidden md:flex items-center text-unach-dorado hover:text-unach-azul-oscuro font-semibold transition-colors text-sm font-poppins">
+            Ver calendario completo <x-heroicon-m-arrow-right class="w-4 h-4 ml-1" />
+        </a>
+    </div>
 
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-</style>
+    <!-- Grid configurado para tarjetas más cuadradas -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        @forelse ($eventos as $evento)
+            <div x-data="{ open: false }" class="relative bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                
+                <div @click="open = true" class="flex flex-col cursor-pointer h-full">
+                    
+                    <!-- IMAGEN SUPERIOR -->
+                    <div class="relative w-full h-48 overflow-hidden bg-unach-fondo">
+                        <img src="{{ asset('storage/' . $evento->imagen) }}" alt="{{ $evento->titulo }}" 
+                             class="w-full h-full object-cover">
+                        
+                        <!-- FECHA SUPERPUESTA -->
+                        <div class="absolute top-3 left-3 bg-unach-azul-oscuro/90 backdrop-blur-sm text-white flex flex-col items-center justify-center w-12 h-14 rounded-lg shadow-md border border-white/10">
+                            <span class="text-[9px] font-bold uppercase opacity-80">{{ \Carbon\Carbon::parse($evento->fecha_evento)->translatedFormat('M') }}</span>
+                            <span class="text-lg font-extrabold font-heading leading-none">{{ \Carbon\Carbon::parse($evento->fecha_evento)->format('d') }}</span>
+                        </div>
+                    </div>
 
-<section class="py-16 font-sans ">
-    <div class="container mx-auto px-4 md:px-12">
+                    <!-- CONTENIDO INFERIOR -->
+                    <div class="p-5 flex-1 flex flex-col">
+                        <h3 class="text-base font-bold text-unach-azul-oscuro mb-2 font-heading line-clamp-2">
+                            {{ $evento->titulo }}
+                        </h3>
+                        
+                        <p class="text-xs text-unach-gris-texto mb-4 line-clamp-2 font-poppins">
+                            {{ $evento->descripcion }}
+                        </p>
 
-        <div class="flex justify-between items-end mb-6 px-1">
-            <div class="w-full text-center">
-                <h2 class="text-4xl font-extrabold text-[#001B3A] tracking-tight">
-                    Eventos <span class="text-[#EAB308]"> próximos</span>
-                </h2>
-                <div class="h-1 w-16 bg-[#EAB308] mt-3 mx-auto rounded-full"></div>
-                <p class="mt-3 text-gray-500 max-w-2xl mx-auto text-sm">
-                    Aquí puedes ver los eventos próximos que se llevarán a cabo en la UNACH. ¡No te los pierdas!
-                </p>
+                        <div class="mt-auto space-y-2 text-[11px] text-gray-500 font-poppins">
+                            <div class="flex items-center">
+                                <x-heroicon-o-clock class="w-3.5 h-3.5 mr-1.5 text-unach-dorado" />
+                                <span>{{ $evento->horario }}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <x-heroicon-o-map-pin class="w-3.5 h-3.5 mr-1.5 text-unach-dorado" />
+                                <span class="truncate">{{ $evento->direccion }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <x-eventos.modal :evento="$evento" />
             </div>
-            @if (count($eventos) > 4)
-                <div class="hidden md:flex space-x-2 text-sm text-gray-400">
-                    ← Desliza →
-                </div>
-            @endif
-        </div>
-
-        <div class="flex overflow-x-auto pb-6 gap-4 snap-x snap-mandatory scroll-smooth no-scrollbar">
-
-            @foreach ($eventos as $evento)
-                <div class="min-w-[70%] md:min-w-[35%] lg:min-w-[23%] snap-center h-full" x-data="{ open: false }">
-                    {{-- Pasamos el array individual al componente card --}}
-                    <x-eventos.card :evento="$evento" @click="open = true" />
-
-                    {{-- Pasamos el array individual al componente modal --}}
-                    <x-eventos.modal :evento="$evento" />
-                </div>
-            @endforeach
-
-        </div>
+        @empty
+            <p class="col-span-full text-center text-unach-gris-texto py-10">No hay eventos próximos.</p>
+        @endforelse
     </div>
 </section>

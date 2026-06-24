@@ -1,5 +1,5 @@
 <article
-    class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition-all duration-300 flex flex-col h-full relative cursor-pointer">
+    class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition-all duration-300 flex flex-col h-full relative cursor-pointer font-poppins">
 
     <div class="relative h-36 overflow-hidden bg-gray-100">
         <img src="{{ asset('storage/' . $noticia->imagen_portada) }}" alt="{{ $noticia->titulo }}"

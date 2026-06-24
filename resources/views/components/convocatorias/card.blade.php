@@ -1,59 +1,58 @@
 @props(['convocatoria'])
 
-<div class="min-w-[70%] md:min-w-[35%] lg:min-w-[22%] snap-center flex h-full">
+<div class="h-full flex flex-col bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:border-unach-dorado/30 transition-all duration-500 overflow-hidden font-poppins group">
 
-    <div
-        class="w-full bg-[#001B3A] border border-gray-600/60 rounded-xl overflow-hidden flex flex-col hover:border-[#EAB308] hover:shadow-[0_0_15px_rgba(234,179,8,0.3)] transition-all duration-300 group">
+    <div class="relative h-48 overflow-hidden bg-unach-fondo">
+        
+        <img src="{{ asset('storage/' . $convocatoria->imagen) }}"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            alt="{{ $convocatoria->titulo }}">
 
-        <div class="relative h-36 overflow-hidden">
-            <img src="{{ asset('storage/' . $convocatoria->imagen) }}"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                alt="{{ $convocatoria['titulo'] }}">
+        <div class="absolute inset-0 bg-gradient-to-t from-unach-azul-oscuro/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-            <div
-                class="absolute top-2 left-2 bg-[#f1e06f] text-[#001B3A] px-2 py-0.5 rounded-md text-[10px] font-bold uppercase shadow-sm flex items-center gap-1">
-                <span @class([
-                    'text-lg leading-none text-center mb-1',
-                    'text-green-600' => $convocatoria['estado'] === 'Abierta',
-                    'text-yellow-600' => $convocatoria['estado'] === 'Próxima',
-                    'text-red-600' => $convocatoria['estado'] === 'Cerrada',
-                    'text-blue-600' => $convocatoria['estado'] === 'Nueva',
-                ])>●</span>
-                {{ $convocatoria['estado'] }}
-            </div>
-
-            <div
-                class="absolute top-2 right-2 bg-[#f1e06f] text-[#001B3A] px-2 py-1 rounded-md text-center shadow-sm leading-none min-w-12">
-                <span class="block text-[8px] font-bold uppercase mb-0.5">{{ $convocatoria['mes_limite'] }}.</span>
-                <span class="block text-lg font-bold">{{ $convocatoria['dia_limite'] }}</span>
-            </div>
+        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-unach-azul-oscuro px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase shadow-sm flex items-center gap-2 border border-white/50">
+            <span @class([
+                'w-2 h-2 rounded-full',
+                'bg-green-500 animate-pulse shadow-[0_0_5px_#4ade80]' => $convocatoria->estado === 'Abierta',
+                'bg-unach-dorado' => $convocatoria->estado === 'Próxima',
+                'bg-red-500' => $convocatoria->estado === 'Cerrada',
+                'bg-unach-azul' => $convocatoria->estado === 'Nueva',
+            ])></span>
+            {{ $convocatoria->estado }}
         </div>
 
-        <div class="p-4 flex-1 flex flex-col">
-
-            <h3 class="text-base font-bold text-white leading-tight mb-3 line-clamp-2">
-                {{ $convocatoria['titulo'] }}
-            </h3>
-
-            <div class="flex items-center text-gray-300 text-xs mb-3">
-                <x-heroicon-m-calendar-days class="w-4 h-4 mr-1.5 text-[#EAB308]" />
-                <span>Límite: {{ $convocatoria['fecha_completa'] }}</span>
-            </div>
-
-            <div class="mb-4">
-                <span
-                    class="bg-[#EAB308]/20 text-[#EAB308] border border-[#EAB308] px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wide">
-                    {{ $convocatoria['categoria'] }}
-                </span>
-            </div>
-
-            <div class="mt-auto">
-                <a href="{{ route('convocatorias.show', $convocatoria['slug']) }}" target="_blank"
-                    class="block w-full bg-[#f1e06f] hover:bg-[#c79807] text-[#001B3A] font-bold text-center py-2 text-sm rounded-lg transition-colors duration-300 shadow-md">
-                    Ver convocatoria
-                </a>
-            </div>
-
+        <div class="absolute top-4 right-4 bg-unach-dorado px-2.5 py-1.5 rounded-xl text-center shadow-lg leading-none min-w-[50px] border border-white/20">
+            <span class="block text-[9px] font-bold uppercase text-unach-azul-oscuro/80 mb-0.5">{{ $convocatoria->mes_limite }}</span>
+            <span class="block text-lg font-black text-unach-azul-oscuro">{{ $convocatoria->dia_limite }}</span>
         </div>
+    </div>
+
+    <div class="p-6 flex-1 flex flex-col">
+
+        <div class="mb-2">
+            <span class="inline-block text-[10px] font-bold text-unach-dorado uppercase tracking-widest">
+                {{ $convocatoria->categoria }}
+            </span>
+        </div>
+
+        <h3 class="text-lg font-bold text-unach-azul-oscuro leading-snug mb-4 line-clamp-2 font-heading group-hover:text-unach-azul transition-colors">
+            {{ $convocatoria->titulo }}
+        </h3>
+
+        <div class="flex items-center text-unach-gris-texto text-xs mb-6 mt-auto">
+            <div class="w-7 h-7 rounded-full bg-unach-fondo flex items-center justify-center mr-2.5 shrink-0 group-hover:bg-unach-dorado/20 transition-colors">
+                <x-heroicon-o-calendar class="w-3.5 h-3.5 text-unach-dorado" />
+            </div>
+            <span class="font-medium">Cierra el {{ $convocatoria->fecha_formateada }}</span>
+        </div>
+
+        <div>
+            <a href="{{ route('convocatorias.show', $convocatoria->slug) }}" target="_blank"
+                class="flex items-center justify-between w-full bg-unach-fondo hover:bg-unach-dorado text-unach-azul-oscuro font-bold px-5 py-3.5 rounded-xl transition-all duration-300 group/btn">
+                <span class="text-sm">Ver detalles</span>
+                <x-heroicon-m-arrow-right class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+            </a>
+        </div>
+
     </div>
 </div>

@@ -1,59 +1,44 @@
-<div class="relative z-10 bg-gray-50 font-sans">
-    <div class="container mx-auto">
-
-        <div class="flex flex-col lg:flex-row gap-8 mb-8 items-center lg:items-end">
-            <div class="w-full lg:w-1/4 flex justify-center items-end">
-                <img src="{{ asset('images/logo-noticias-eventos.png') }}" alt="Icono de Noticias y Eventos"
-                    class="h-16 md:h-30 w-auto">
-            </div>
-
-            <div class="w-full lg:w-3/4 text-center lg:text-left">
-                <h1 class="text-4xl font-extrabold text-[#001B3A] tracking-tight">
-                    Noticias, Eventos y <span class="text-[#EAB308]">Convocatorias</span>
-                </h1>
-                <div class="h-1 w-16 bg-[#EAB308] mt-4 rounded-full mx-auto lg:mx-0"></div>
-                <p class="mt-4 text-gray-600 text-lg">
-                    Mantente al día con nuestras publicaciones, comunicados y próximas actividades.
-                </p>
-            </div>
-        </div>
+<div class="relative z-10 font-sans w-full">
+    <div class="container mx-auto px-4 lg:px-8">
 
         <div class="flex flex-col lg:flex-row gap-8 items-start">
 
-            <aside class="w-full lg:w-1/4 flex flex-col gap-6 sticky top-24 z-20">
+            <aside class="w-full lg:w-1/4 flex flex-col gap-6 lg:sticky lg:top-28 z-20 font-poppins">
 
-                <div class="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex flex-col space-y-1">
+                <div class="bg-white p-3 rounded-3xl shadow-sm border border-gray-100 flex flex-col space-y-2">
                     <button type="button" wire:click="$set('activeTab', 'noticias')"
-                        class="{{ $activeTab === 'noticias' ? 'bg-[#001B3A] text-white' : 'text-gray-600 hover:bg-gray-100' }} px-4 py-3 text-sm font-bold rounded-xl transition-colors text-left flex items-center justify-between cursor-pointer">
+                        class="{{ $activeTab === 'noticias' ? 'bg-unach-azul-oscuro text-white shadow-md' : 'text-unach-gris-texto hover:bg-unach-fondo hover:text-unach-azul' }} px-5 py-4 text-sm font-semibold rounded-2xl transition-all duration-300 text-left flex items-center justify-between group cursor-pointer">
                         <span>Noticias</span>
-                        <x-heroicon-m-newspaper class="w-5 h-5" />
+                        <x-heroicon-m-newspaper class="w-5 h-5 {{ $activeTab === 'noticias' ? 'text-unach-dorado' : 'text-gray-400 group-hover:text-unach-azul' }} transition-colors" />
                     </button>
+                    
                     <button type="button" wire:click="$set('activeTab', 'eventos')"
-                        class="{{ $activeTab === 'eventos' ? 'bg-[#001B3A] text-white' : 'text-gray-600 hover:bg-gray-100' }} px-4 py-3 text-sm font-bold rounded-xl transition-colors text-left flex items-center justify-between cursor-pointer">
+                        class="{{ $activeTab === 'eventos' ? 'bg-unach-azul-oscuro text-white shadow-md' : 'text-unach-gris-texto hover:bg-unach-fondo hover:text-unach-azul' }} px-5 py-4 text-sm font-semibold rounded-2xl transition-all duration-300 text-left flex items-center justify-between group cursor-pointer">
                         <span>Eventos</span>
-                        <x-heroicon-m-calendar-days class="w-5 h-5" />
+                        <x-heroicon-m-calendar-days class="w-5 h-5 {{ $activeTab === 'eventos' ? 'text-unach-dorado' : 'text-gray-400 group-hover:text-unach-azul' }} transition-colors" />
                     </button>
+                    
                     <button type="button" wire:click="$set('activeTab', 'convocatorias')"
-                        class="{{ $activeTab === 'convocatorias' ? 'bg-[#001B3A] text-white' : 'text-gray-600 hover:bg-gray-100' }} px-4 py-3 text-sm font-bold rounded-xl transition-colors text-left flex items-center justify-between cursor-pointer">
+                        class="{{ $activeTab === 'convocatorias' ? 'bg-unach-azul-oscuro text-white shadow-md' : 'text-unach-gris-texto hover:bg-unach-fondo hover:text-unach-azul' }} px-5 py-4 text-sm font-semibold rounded-2xl transition-all duration-300 text-left flex items-center justify-between group cursor-pointer">
                         <span>Convocatorias</span>
-                        <x-heroicon-m-megaphone class="w-5 h-5" />
+                        <x-heroicon-m-megaphone class="w-5 h-5 {{ $activeTab === 'convocatorias' ? 'text-unach-dorado' : 'text-gray-400 group-hover:text-unach-azul' }} transition-colors" />
                     </button>
                 </div>
 
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-[#001B3A] mb-3 uppercase tracking-wider text-sm flex items-center">
-                        <x-heroicon-m-building-office class="w-4 h-4 mr-2 text-[#EAB308]" />
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-unach-azul-oscuro mb-4 uppercase tracking-widest text-xs flex items-center">
+                        <x-heroicon-m-building-office class="w-4 h-4 mr-2 text-unach-dorado" />
                         Departamento
                     </h3>
                     <div class="relative">
                         <select wire:model.live="departamento_id"
-                            class="w-full pl-3 pr-8 py-2.5 bg-gray-50 border-gray-200 rounded-lg focus:ring-[#EAB308] focus:border-[#EAB308] text-sm text-gray-700 appearance-none cursor-pointer">
+                            class="w-full pl-4 pr-10 py-3 bg-unach-fondo border-transparent focus:bg-white rounded-xl focus:ring-2 focus:ring-unach-dorado focus:border-unach-dorado text-sm text-unach-azul-oscuro appearance-none cursor-pointer transition-all outline-none">
                             <option value="">Todos los departamentos</option>
                             @foreach ($departamentos as $depto)
                                 <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
                             @endforeach
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-unach-azul">
                             <x-heroicon-m-chevron-down class="w-4 h-4" />
                         </div>
                     </div>
@@ -61,17 +46,21 @@
 
                 @if($activeTab === 'noticias' || $activeTab === 'convocatorias')
                     <div class="space-y-6">
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                            <h3 class="font-bold text-[#001B3A] mb-3 uppercase tracking-wider text-sm">Buscar {{ $activeTab === 'noticias' ? 'Noticia' : 'Convocatoria' }}</h3>
-                            <div class="relative">
+                        
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-unach-azul-oscuro mb-4 uppercase tracking-widest text-xs">
+                                Buscar {{ $activeTab === 'noticias' ? 'Noticia' : 'Convocatoria' }}
+                            </h3>
+                            <div class="relative group">
                                 <input type="text" wire:model.live="buscar" placeholder="Palabra clave..."
-                                    class="w-full pl-10 pr-4 py-2 border-gray-200 rounded-lg focus:ring-[#EAB308] focus:border-[#EAB308] text-sm">
-                                <x-heroicon-m-magnifying-glass class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
+                                    class="w-full pl-11 pr-4 py-3 bg-unach-fondo border-transparent focus:bg-white rounded-xl focus:ring-2 focus:ring-unach-dorado focus:border-unach-dorado text-sm transition-all text-unach-azul-oscuro placeholder-gray-400 outline-none">
+                                <x-heroicon-m-magnifying-glass class="w-5 h-5 text-gray-400 group-focus-within:text-unach-dorado absolute left-4 top-3 transition-colors" />
                             </div>
                         </div>
 
-                        <div class="bg-[#001B3A] p-6 rounded-2xl shadow-md text-white">
-                            <h3 class="font-bold text-[#EAB308] mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-unach-azul-oscuro mb-4 uppercase tracking-widest text-xs flex items-center">
+                                <x-heroicon-m-calendar class="w-4 h-4 mr-2 text-unach-dorado" />
                                 Año de Publicación
                             </h3>
                             <div class="space-y-3">
@@ -82,8 +71,8 @@
                                 @foreach ($listaAnios as $anio)
                                     <label class="flex items-center space-x-3 cursor-pointer group">
                                         <input type="checkbox" wire:model.live="anios" value="{{ $anio }}"
-                                            class="form-checkbox h-4 w-4 text-[#EAB308] border-gray-400 rounded focus:ring-[#EAB308] focus:ring-offset-[#001B3A]">
-                                        <span class="text-sm text-gray-200 group-hover:text-white transition-colors">{{ $anio }}</span>
+                                            class="form-checkbox h-4 w-4 text-unach-azul-oscuro border-gray-300 rounded focus:ring-unach-dorado focus:ring-offset-0 transition-colors cursor-pointer">
+                                        <span class="text-sm text-unach-gris-texto group-hover:text-unach-azul-oscuro font-medium transition-colors">{{ $anio }}</span>
                                     </label>
                                 @endforeach
                             </div>
@@ -93,27 +82,28 @@
 
                 @if($activeTab === 'eventos')
                     <div class="space-y-6">
-                        <div class="bg-[#001B3A] p-6 rounded-2xl shadow-md text-white">
-                            <h3 class="font-bold text-[#EAB308] mb-4 uppercase tracking-wider text-sm border-b border-white/20 pb-2">
+                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-unach-azul-oscuro mb-4 uppercase tracking-widest text-xs flex items-center">
+                                <x-heroicon-m-clock class="w-4 h-4 mr-2 text-unach-dorado" />
                                 Estado del Evento
                             </h3>
                             <div class="space-y-3">
                                 <label class="flex items-center space-x-3 cursor-pointer group">
                                     <input type="radio" wire:model.live="filtroEventos" value="proximos"
-                                        class="form-radio h-4 w-4 text-[#EAB308] border-gray-400 focus:ring-[#EAB308] focus:ring-offset-[#001B3A]">
-                                    <span class="text-sm text-gray-200 group-hover:text-white transition-colors">Próximos a realizarse</span>
+                                        class="form-radio h-4 w-4 text-unach-azul-oscuro border-gray-300 focus:ring-unach-dorado focus:ring-offset-0 transition-colors cursor-pointer">
+                                    <span class="text-sm text-unach-gris-texto group-hover:text-unach-azul-oscuro font-medium transition-colors">Próximos a realizarse</span>
                                 </label>
 
                                 <label class="flex items-center space-x-3 cursor-pointer group">
                                     <input type="radio" wire:model.live="filtroEventos" value="pasados"
-                                        class="form-radio h-4 w-4 text-[#EAB308] border-gray-400 focus:ring-[#EAB308] focus:ring-offset-[#001B3A]">
-                                    <span class="text-sm text-gray-200 group-hover:text-white transition-colors">Eventos pasados</span>
+                                        class="form-radio h-4 w-4 text-unach-azul-oscuro border-gray-300 focus:ring-unach-dorado focus:ring-offset-0 transition-colors cursor-pointer">
+                                    <span class="text-sm text-unach-gris-texto group-hover:text-unach-azul-oscuro font-medium transition-colors">Eventos pasados</span>
                                 </label>
 
                                 <label class="flex items-center space-x-3 cursor-pointer group">
                                     <input type="radio" wire:model.live="filtroEventos" value="todos"
-                                        class="form-radio h-4 w-4 text-[#EAB308] border-gray-400 focus:ring-[#EAB308] focus:ring-offset-[#001B3A]">
-                                    <span class="text-sm text-gray-200 group-hover:text-white transition-colors">Ver todos</span>
+                                        class="form-radio h-4 w-4 text-unach-azul-oscuro border-gray-300 focus:ring-unach-dorado focus:ring-offset-0 transition-colors cursor-pointer">
+                                    <span class="text-sm text-unach-gris-texto group-hover:text-unach-azul-oscuro font-medium transition-colors">Ver todos</span>
                                 </label>
                             </div>
                         </div>
@@ -122,7 +112,8 @@
 
                 @if (!empty($buscar) || !empty($anios) || !empty($departamento_id) || $filtroEventos !== 'proximos')
                     <button type="button" wire:click="$set('buscar', ''); $set('anios', []); $set('departamento_id', ''); $set('filtroEventos', 'proximos');"
-                        class="text-center w-full text-sm text-gray-500 hover:text-red-500 font-bold transition-colors">
+                        class="text-center w-full text-sm text-gray-400 hover:text-red-500 font-bold transition-colors flex items-center justify-center gap-2">
+                        <x-heroicon-m-x-mark class="w-4 h-4" />
                         Limpiar Filtros
                     </button>
                 @endif
@@ -130,18 +121,17 @@
             </aside>
 
 
-            <div class="relative z-50 w-full lg:w-3/4 flex flex-col gap-6">
+            <div class="relative z-0 w-full lg:w-3/4 flex flex-col gap-6 min-h-125">
 
-                <div wire:loading class="w-full transition-all duration-300">
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                        @for ($i = 0; $i < 3; $i++)
-                            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 animate-pulse flex flex-col h-full">
-                                <div class="w-full h-48 bg-gray-200 rounded-xl mb-4"></div>
-                                <div class="w-20 h-4 bg-gray-200 rounded mb-3"></div>
-                                <div class="w-3/4 h-6 bg-gray-200 rounded mb-2"></div>
-                                <div class="w-1/2 h-6 bg-gray-200 rounded mb-4"></div>
-                                <div class="w-full h-16 bg-gray-200 rounded mb-auto"></div>
-                                <div class="w-full h-10 bg-gray-100 rounded mt-4"></div>
+                <div wire:loading class="w-full absolute inset-0 bg-unach-fondo/80 backdrop-blur-sm z-10 transition-all duration-300">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 opacity-60 pt-2">
+                        @for ($i = 0; $i < 6; $i++)
+                            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 animate-pulse flex flex-col h-87.5">
+                                <div class="w-full h-40 bg-gray-200 rounded-xl mb-4"></div>
+                                <div class="w-24 h-4 bg-gray-200 rounded-full mb-4"></div>
+                                <div class="w-full h-5 bg-gray-200 rounded-md mb-2"></div>
+                                <div class="w-3/4 h-5 bg-gray-200 rounded-md mb-4"></div>
+                                <div class="w-full h-10 bg-gray-100 rounded-lg mt-auto"></div>
                             </div>
                         @endfor
                     </div>
@@ -152,20 +142,20 @@
                     @if($activeTab === 'noticias')
                         <div>
                             @if ($noticias->count() > 0)
-                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                                     @foreach ($noticias as $noticia)
                                         <x-noticias.card :noticia="$noticia" />
                                     @endforeach
                                 </div>
                             @else
-                                <div class="bg-white rounded-2xl p-12 text-center border border-gray-100 shadow-sm flex flex-col items-center">
+                                <div class="bg-white rounded-3xl p-16 text-center border border-gray-100 shadow-sm flex flex-col items-center mt-4">
                                     <x-heroicon-o-document-magnifying-glass class="w-16 h-16 text-gray-300 mb-4" />
-                                    <h3 class="text-xl font-bold text-[#001B3A]">No se encontraron noticias</h3>
-                                    <p class="text-gray-500 mt-2">Intenta ajustar tus filtros de búsqueda.</p>
+                                    <h3 class="text-xl font-bold text-unach-azul-oscuro font-heading">No se encontraron noticias</h3>
+                                    <p class="text-unach-gris-texto mt-2 font-poppins">Intenta ajustar tus filtros de búsqueda para ver más resultados.</p>
                                 </div>
                             @endif
 
-                            <div class="mt-8">
+                            <div class="mt-10">
                                 {{ $noticias->links() }}
                             </div>
                         </div>
@@ -174,23 +164,23 @@
                     @if($activeTab === 'eventos')
                         <div>
                             @if ($eventos && $eventos->count() > 0)
-                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                                     @foreach ($eventos as $evento)
-                                        <div class="min-w-[70%] md:min-w-[35%] lg:min-w-[23%] snap-center h-full" x-data="{ open: false }">
+                                        <div class="h-full" x-data="{ open: false }">
                                             <x-eventos.card :evento="$evento" @click="open = true" />
                                             <x-eventos.modal :evento="$evento" />
                                         </div>
                                     @endforeach
                                 </div>
                             @else
-                                <div class="bg-white rounded-2xl p-12 text-center border border-gray-100 shadow-sm flex flex-col items-center">
+                                <div class="bg-white rounded-3xl p-16 text-center border border-gray-100 shadow-sm flex flex-col items-center mt-4">
                                     <x-heroicon-o-calendar class="w-16 h-16 text-gray-300 mb-4" />
-                                    <h3 class="text-xl font-bold text-[#001B3A]">No se encontraron eventos</h3>
-                                    <p class="text-gray-500 mt-2">Prueba cambiando el filtro de estado de evento.</p>
+                                    <h3 class="text-xl font-bold text-unach-azul-oscuro font-heading">No se encontraron eventos</h3>
+                                    <p class="text-unach-gris-texto mt-2 font-poppins">Prueba cambiando el filtro de estado del evento en el panel lateral.</p>
                                 </div>
                             @endif
 
-                            <div class="mt-8">
+                            <div class="mt-10">
                                 {{ $eventos->links() }}
                             </div>
                         </div>
@@ -199,20 +189,20 @@
                     @if($activeTab === 'convocatorias')
                         <div>
                             @if ($convocatorias && $convocatorias->count() > 0)
-                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                                     @foreach ($convocatorias as $convocatoria)
                                         <x-convocatorias.card :convocatoria="$convocatoria" />
                                     @endforeach
                                 </div>
                             @else
-                                <div class="bg-white rounded-2xl p-12 text-center border border-gray-100 shadow-sm flex flex-col items-center">
+                                <div class="bg-white rounded-3xl p-16 text-center border border-gray-100 shadow-sm flex flex-col items-center mt-4">
                                     <x-heroicon-o-megaphone class="w-16 h-16 text-gray-300 mb-4" />
-                                    <h3 class="text-xl font-bold text-[#001B3A]">No hay convocatorias disponibles</h3>
-                                    <p class="text-gray-500 mt-2">Intenta ajustar tus filtros o regresa más tarde.</p>
+                                    <h3 class="text-xl font-bold text-unach-azul-oscuro font-heading">No hay convocatorias disponibles</h3>
+                                    <p class="text-unach-gris-texto mt-2 font-poppins">Intenta ajustar tus filtros o regresa más tarde.</p>
                                 </div>
                             @endif
 
-                            <div class="mt-8">
+                            <div class="mt-10">
                                 {{ $convocatorias->links() }}
                             </div>
                         </div>

@@ -9,11 +9,11 @@
                     @if($enlace->icono)
                         <x-dynamic-component 
                             :component="$enlace->icono" 
-                            class="h-16 w-16 text-[#001B3A] group-hover:text-[#EAB308] transition duration-300" 
+                            class="h-16 w-16 text-[#002173] group-hover:text-[#EAB308] transition duration-300" 
                         />
                     @endif
 
-                    <p class="mt-4 text-[#001B3A] font-bold text-center group-hover:text-[#EAB308] transition duration-300 max-w-37.5 leading-tight">
+                    <p class="mt-4 text-[#002173] font-bold text-center group-hover:text-[#EAB308] transition duration-300 max-w-37.5 leading-tight">
                         {{ $enlace->titulo }}
                     </p>
                 </a>

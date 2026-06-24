@@ -25,7 +25,7 @@
         }
     </style>
 
-    <section class="py-16 border-t border-gray-100 overflow-hidden">
+    <section class="py-16 border-t border-gray-100 overflow-hidden bg-white">
         <div class="relative w-full overflow-hidden hover:pause">
             <div class="absolute inset-y-0 left-0 w-20 bg-linear-to-r from-gray-50 to-transparent z-10 pointer-events-none"></div>
             <div class="absolute inset-y-0 right-0 w-20 bg-linear-to-l from-gray-50 to-transparent z-10 pointer-events-none"></div>

@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SeccionHero;
 use App\Models\EnlaceRapido;
 use App\Models\Noticia;
 use App\Models\Evento;
 use App\Models\Convocatoria;
 use App\Models\Aliado;
 use App\Models\Instalacion;
-use Carbon\Carbon;
 
 class InicioController extends Controller
 {
     public function __invoke()
     {
-        $heroes = SeccionHero::latest()->get();
 
         $enlaces = EnlaceRapido::where('activo', true)
             ->orderBy('orden', 'asc')
@@ -48,6 +45,6 @@ class InicioController extends Controller
 
         $aliados = Aliado::where('activo', true)->get();
 
-        return view('inicio', compact('heroes', 'enlaces', 'noticias', 'eventos', 'convocatorias', 'instalacionDestacada', 'aliados'));
+        return view('inicio', compact('enlaces', 'noticias', 'eventos', 'convocatorias', 'instalacionDestacada', 'aliados'));
     }
 }

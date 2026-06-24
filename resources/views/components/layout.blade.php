@@ -17,8 +17,7 @@
 </head>
 
 
-<body class="font-sans antialiased bg-gray-50 text-[#001B3A] flex flex-col min-h-screen">
-
+<body class="font-sans antialiased bg-[#0038C3] text-[#001B3A] flex flex-col min-h-screen">
     <x-header />
 
     <main class="grow">

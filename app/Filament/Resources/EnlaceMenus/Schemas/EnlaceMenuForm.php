@@ -9,6 +9,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Utilities\Get;
+use Filament\Forms\Components\Select;
 
 class EnlaceMenuForm
 {
@@ -43,7 +44,18 @@ class EnlaceMenuForm
                                     ->label('¿Es un menú desplegable?')
                                     ->helperText('Activa esto si quieres que al pasar el cursor se muestren sub-enlaces.')
                                     ->live(),
+
+                                Select::make('fila')
+                                    ->label('Fila de ubicación')
+                                    ->options([
+                                        1 => 'Fila 1 (Superior, junto al buscador)',
+                                        2 => 'Fila 2 (Principal)',
+                                    ])
+                                    ->default(2)
+                                    ->required(),
                             ]),
+
+
 
                         // FILA 3: Repeater de hijos (solo visible si es desplegable)
                         Repeater::make('hijos')

@@ -1,5 +1,7 @@
-@import 'tailwindcss';
+/* 1. Actualizamos el import para incluir Poppins (pesos 400 regular y 700 bold) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;700&display=swap');
 
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -8,6 +10,29 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Open Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Montserrat', sans-serif;
+    /* Agregamos Poppins */
+    --font-poppins: 'Poppins', sans-serif;
+
+    --color-unach-azul: #0038C3;        
+    --color-unach-azul-oscuro: #001D64; 
+    --color-unach-dorado: #FFDB12;      
+    --color-unach-gris-oscuro: #2B2F3A;   
+    --color-unach-gris-texto: #1F2E47;    
+    --color-unach-fondo: #F7F8FF;       
+}
+
+@layer base {
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        color: var(--color-unach-azul-oscuro);
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--color-unach-gris-texto);
+        background-color: var(--color-unach-fondo);
+    }
 }
