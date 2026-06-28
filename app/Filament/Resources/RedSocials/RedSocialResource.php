@@ -53,7 +53,7 @@ class RedSocialResource extends Resource
         /** @var \App\Models\User $usuario */
         $usuario = Auth::user();
 
-        if ($usuario && $usuario->role !== 'super_admin' && $usuario->departamento_id) {
+        if ($usuario && $usuario->rol !== 'super_admin' && $usuario->departamento_id) {
             $query->where('departamento_id', $usuario->departamento_id);
         }
 

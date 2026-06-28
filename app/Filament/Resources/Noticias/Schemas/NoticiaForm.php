@@ -47,7 +47,7 @@ class NoticiaForm
                                 /** @var \App\Models\User $user */
                                 $user = Auth::user();
 
-                                return $user ? ! $user->hasRole('super_admin') : false;
+                                return $user ? $user->rol !== 'super_admin' : false;
                             })
                             ->dehydrated()
                             ->required(),
@@ -98,7 +98,24 @@ class NoticiaForm
                                 ->label('Publicar inmediatamente'),
                         ]),
 
+
+                    ])->columnSpan(1),
+                Section::make('Estado de Publicación')
+                    ->schema([
+                        TextInput::make('estado_publicacion')
+                            # mostrar valor en mayusculas: revision, publicado, rechazado
+                            ->label('Estado de Publicación')
+                            ->formatStateUsing(fn(string $state) => strtoupper($state))
+                            ->disabled()
+                            ->default('revision')
+                            ->helperText('El estado de publicación es gestionado por el administrador (si la revisión está activada).'),
+                        Textarea::make('comentarios_revision')
+                            ->label('Motivo de Rechazo (Comentarios de revisión)')
+                            ->disabled(fn() => Auth::user()?->rol !== 'super_admin')
+                            ->visible(fn(?\App\Models\Noticia $record) => $record && $record->estado_publicacion === 'rechazado')
+                            ->columnSpanFull(),
                     ])
+
             ]);
     }
 }

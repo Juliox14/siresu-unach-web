@@ -6,6 +6,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Actions\Action;
+use Filament\Forms\Components\Textarea;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -13,6 +15,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class EventosTable
 {
@@ -24,6 +27,7 @@ class EventosTable
                     ->label('Portada')
                     ->square() // Las imágenes cuadradas o rectangulares suelen verse mejor para banners de eventos que los círculos.
                     ->imageSize(50)
+                    ->disk('public')
                     ->defaultImageUrl(url('/images/logo-siresu.png')), // Fallback visual si no hay imagen
 
                 TextColumn::make('titulo')
@@ -56,6 +60,16 @@ class EventosTable
                         default => 'gray',
                     }),
 
+                TextColumn::make('estado_publicacion')
+                    ->label('Estado')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'revision' => 'warning',
+                        'publicado' => 'success',
+                        'rechazado' => 'danger',
+                        default => 'gray',
+                    }),
+
                 ToggleColumn::make('activo')
                     ->label('Visibilidad')
                     ->sortable(),
@@ -73,6 +87,35 @@ class EventosTable
                     ->label('Estado de Visibilidad'),
             ])
             ->recordActions([
+                Action::make('previsualizar')
+                    ->label('Previsualizar')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->url(fn (\App\Models\Evento $record) => route('admin.preview.evento', $record))
+                    ->openUrlInNewTab(),
+                Action::make('aprobar')
+                    ->label('Aprobar')
+                    ->icon('heroicon-o-check')
+                    ->color('success')
+                    ->visible(fn (\App\Models\Evento $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->action(function (\App\Models\Evento $record) {
+                        $record->update(['estado_publicacion' => 'publicado', 'comentarios_revision' => null]);
+                        \Filament\Notifications\Notification::make()->title('Publicada')->success()->send();
+                    }),
+                Action::make('rechazar')
+                    ->label('Rechazar')
+                    ->icon('heroicon-o-x-mark')
+                    ->color('danger')
+                    ->visible(fn (\App\Models\Evento $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->form([
+                        Textarea::make('comentarios_revision')
+                            ->label('Comentarios')
+                            ->required(),
+                    ])
+                    ->action(function (\App\Models\Evento $record, array $data) {
+                        $record->update(['estado_publicacion' => 'rechazado', 'comentarios_revision' => $data['comentarios_revision']]);
+                        \Filament\Notifications\Notification::make()->title('Rechazada')->warning()->send();
+                    }),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

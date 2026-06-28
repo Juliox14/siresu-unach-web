@@ -66,7 +66,7 @@ class EventoForm
                                         /** @var \App\Models\User $user */
                                         $user = Auth::user();
 
-                                        return $user ? ! $user->hasRole('super_admin') : false;
+                                        return $user ? $user->rol !== 'super_admin' : false;
                                     })
                                     ->dehydrated()
                                     ->required(),
@@ -85,7 +85,7 @@ class EventoForm
                                                 'm' => 'Mini (Pequeño)',
                                             ])
                                             ->default('o')
-                                            ->live() 
+                                            ->live()
                                             ->afterStateHydrated(function (Select $component, ?\Illuminate\Database\Eloquent\Model $record) {
                                                 if ($record && $record->icono) {
                                                     preg_match('/^heroicon-([osm])-/', $record->icono, $matches);
@@ -101,6 +101,7 @@ class EventoForm
                                         TextInput::make('nombre_icono')
                                             ->label('Nombre del icono')
                                             ->placeholder('Busca en heroicons.com')
+                                            ->required()
                                             ->live(onBlur: true)
                                             ->afterStateHydrated(function (TextInput $component, ?\Illuminate\Database\Eloquent\Model $record) {
                                                 if ($record && $record->icono) {
@@ -110,8 +111,8 @@ class EventoForm
                                             })
                                             ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
                                                 $state = str_replace(['heroicon-o-', 'heroicon-s-', 'heroicon-m-'], '', $state ?? '');
-                                                $set('nombre_icono', $state); 
-                                                
+                                                $set('nombre_icono', $state);
+
                                                 $estilo = $get('estilo_icono') ?? 'o';
                                                 $set('icono', $state ? 'heroicon-' . $estilo . '-' . $state : null);
                                             }),
@@ -123,7 +124,6 @@ class EventoForm
                                 ])->columnSpanFull(),
                             ]),
 
-                            // Moví la descripción aquí para que fluya con la info principal
                             Textarea::make('descripcion')
                                 ->label('Descripción del Evento')
                                 ->required()
@@ -215,7 +215,24 @@ class EventoForm
                                 ->label('Evento Activo y Visible')
                                 ->default(true)
                                 ->onColor('success'),
+
+
                         ]),
+                    Section::make('Estado de Publicación')
+                        ->schema([
+                            TextInput::make('estado_publicacion')
+                                # mostrar valor en mayusculas: revision, publicado, rechazado
+                                ->label('Estado de Publicación')
+                                ->formatStateUsing(fn(string $state) => strtoupper($state))
+                                ->disabled()
+                                ->default('revision')
+                                ->helperText('El estado de publicación es gestionado por el administrador (si la revisión está activada).'),
+                            Textarea::make('comentarios_revision')
+                                ->label('Motivo de Rechazo (Comentarios de revisión)')
+                                ->disabled(fn() => !Auth::user()?->rol === 'super_admin')
+                                ->visible(fn(?\App\Models\Evento $record) => $record && $record->estado_publicacion === 'rechazado')
+                                ->columnSpanFull(),
+                        ])
 
                 ])->columnSpan(1), // <-- Termina columna derecha
 

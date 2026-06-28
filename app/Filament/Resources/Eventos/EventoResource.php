@@ -56,7 +56,7 @@ class EventoResource extends Resource
         $usuario = Auth::user();
 
         // Si NO es super admin y tiene un departamento asignado, filtramos la tabla
-        if ($usuario && $usuario->role !== 'super_admin' && $usuario->departamento_id) {
+        if ($usuario && $usuario->rol !== 'super_admin' && $usuario->departamento_id) {
             $query->where('departamento_id', $usuario->departamento_id);
         }
 

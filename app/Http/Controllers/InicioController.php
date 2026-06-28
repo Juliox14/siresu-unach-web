@@ -20,11 +20,14 @@ class InicioController extends Controller
 
 
         $noticias = Noticia::where('activo', true)
+            ->where('estado_publicacion', 'publicado')
             ->orderBy('fecha_publicacion', 'desc')
             ->take(3)
             ->get();
 
-        $eventos = Evento::where('activo', true)->with('archivos')
+        $eventos = Evento::where('activo', true)
+            ->where('estado_publicacion', 'publicado')
+            ->with('archivos')
             ->whereDate('fecha_evento', '>=', now())
             ->orderBy('fecha_evento', 'asc')
             ->take(8)
@@ -33,6 +36,7 @@ class InicioController extends Controller
 
 
         $convocatorias = Convocatoria::where('activo', true)
+            ->where('estado_publicacion', 'publicado')
             ->whereDate('fecha_limite', '>=', now())
             ->orderBy('fecha_limite', 'asc')
             ->take(6)

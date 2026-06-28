@@ -17,6 +17,8 @@ class Noticia extends Model
         'fecha_publicacion', 
         'activo',
         'departamento_id',
+        'estado_publicacion',
+        'comentarios_revision',
     ];
 
     protected $casts = [

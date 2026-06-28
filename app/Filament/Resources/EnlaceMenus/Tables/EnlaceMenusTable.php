@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\EnlaceMenus\Tables;
 
 use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,6 +40,7 @@ class EnlaceMenusTable
             ->reorderable('orden')
             ->recordActions([
                 EditAction::make(),
+                DeleteAction::make(),
             ]);
     }
 }

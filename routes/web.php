@@ -28,3 +28,12 @@ Route::get('/convocatorias/{convocatoria}', [ConvocatoriaController::class, 'sho
 Route::view('/terminos-y-condiciones', 'legal.terminos')->name('legal.terminos');
 Route::view('/transparencia', 'legal.transparencia')->name('legal.transparencia');
 Route::view('/aviso-de-privacidad', 'legal.privacidad')->name('legal.privacidad');
+
+Route::middleware([\Filament\Http\Middleware\Authenticate::class])
+    ->prefix('admin/preview')
+    ->name('admin.preview.')
+    ->group(function () {
+        Route::get('/noticia/{record}', [\App\Http\Controllers\Admin\PreviewController::class, 'noticia'])->name('noticia');
+        Route::get('/evento/{record}', [\App\Http\Controllers\Admin\PreviewController::class, 'evento'])->name('evento');
+        Route::get('/convocatoria/{record}', [\App\Http\Controllers\Admin\PreviewController::class, 'convocatoria'])->name('convocatoria');
+    });

@@ -8,7 +8,7 @@
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             alt="{{ $convocatoria->titulo }}">
 
-        <div class="absolute inset-0 bg-gradient-to-t from-unach-azul-oscuro/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-linear-to-t from-unach-azul-oscuro/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
         <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-unach-azul-oscuro px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase shadow-sm flex items-center gap-2 border border-white/50">
             <span @class([
@@ -21,7 +21,7 @@
             {{ $convocatoria->estado }}
         </div>
 
-        <div class="absolute top-4 right-4 bg-unach-dorado px-2.5 py-1.5 rounded-xl text-center shadow-lg leading-none min-w-[50px] border border-white/20">
+        <div class="absolute top-4 right-4 bg-unach-dorado px-2.5 py-1.5 rounded-xl text-center shadow-lg leading-none min-w-12.5 border border-white/20">
             <span class="block text-[9px] font-bold uppercase text-unach-azul-oscuro/80 mb-0.5">{{ $convocatoria->mes_limite }}</span>
             <span class="block text-lg font-black text-unach-azul-oscuro">{{ $convocatoria->dia_limite }}</span>
         </div>

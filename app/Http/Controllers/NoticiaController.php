@@ -16,10 +16,12 @@ class NoticiaController extends Controller
         // Buscamos la noticia principal asegurándonos de que esté activa
         $noticia = Noticia::where('slug', $slug)
             ->where('activo', true)
+            ->where('estado_publicacion', 'publicado')
             ->firstOrFail();
 
         // Buscamos 3 noticias recientes diferentes a la que estamos viendo
         $otrasNoticias = Noticia::where('activo', true)
+            ->where('estado_publicacion', 'publicado')
             ->where('id', '!=', $noticia->id)
             ->latest('fecha_publicacion')
             ->take(3)

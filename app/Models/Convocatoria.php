@@ -17,6 +17,8 @@ class Convocatoria extends Model
         'descripcion_detallada',
         'mostrar_pdf_visualizador',
         'slug',
+        'estado_publicacion',
+        'comentarios_revision',
     ];
 
     public function getRouteKeyName()

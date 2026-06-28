@@ -15,9 +15,8 @@ use Filament\Schemas\Components\Group;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Textarea;
 use Illuminate\Support\Facades\Auth;
-
-
 
 class ConvocatoriaForm
 {
@@ -68,11 +67,11 @@ class ConvocatoriaForm
                                         /** @var \App\Models\User $user */
                                         $user = Auth::user();
 
-                                        return $user ? ! $user->hasRole('super_admin') : false;
+                                        return $user ? $user->rol !== 'super_admin' : false;
                                     })
                                     ->dehydrated()
                                     ->required(),
-                                
+
                                 Select::make('estado')
                                     ->options([
                                         'Abierta' => 'Abierta (Verde)',
@@ -154,8 +153,26 @@ class ConvocatoriaForm
                                 ->default(true)
                                 ->onColor('success')
                                 ->offColor('danger'),
+
+
                         ]),
+                    Section::make('Estado de Publicación')
+                        ->schema([
+                            TextInput::make('estado_publicacion')
+                                # mostrar valor en mayusculas: revision, publicado, rechazado
+                                ->label('Estado de Publicación')
+                                ->formatStateUsing(fn(string $state) => strtoupper($state))
+                                ->disabled()
+                                ->default('revision')
+                                ->helperText('El estado de publicación es gestionado por el administrador (si la revisión está activada).'),
+                            Textarea::make('comentarios_revision')
+                                ->label('Motivo de Rechazo (Comentarios de revisión)')
+                                ->disabled(fn() => Auth::user()?->rol !== 'super_admin')
+                                ->visible(fn(?\App\Models\Convocatoria $record) => $record && $record->estado_publicacion === 'rechazado')
+                                ->columnSpanFull(),
+                        ])
                 ])->columnSpan(1),
+
 
 
             ]);

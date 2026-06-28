@@ -23,6 +23,8 @@ class Evento extends Model
         'link_instagram',
         'activo',
         'departamento_id',
+        'estado_publicacion',
+        'comentarios_revision',
     ];
 
     protected $casts = [

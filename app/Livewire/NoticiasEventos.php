@@ -31,7 +31,9 @@ class NoticiasEventos extends Component
         $departamentos = Departamento::orderBy('nombre')->get();
 
         // 1. FILTRAR NOTICIAS
-        $noticiasQuery = Noticia::where('activo', true)->orderBy('fecha_publicacion', 'desc');
+        $noticiasQuery = Noticia::where('activo', true)
+            ->where('estado_publicacion', 'publicado')
+            ->orderBy('fecha_publicacion', 'desc');
         if ($this->buscar) {
             $noticiasQuery->where(function ($q) {
                 $q->where('titulo', 'like', "%{$this->buscar}%")
@@ -48,7 +50,9 @@ class NoticiasEventos extends Component
 
 
         // 2. FILTRAR EVENTOS
-        $eventosQuery = Evento::with('archivos');
+        $eventosQuery = Evento::with('archivos')
+            ->where('activo', true)
+            ->where('estado_publicacion', 'publicado');
         if ($this->filtroEventos === 'proximos') {
             $eventosQuery->where('fecha_evento', '>=', now())->orderBy('fecha_evento', 'asc');
         } elseif ($this->filtroEventos === 'pasados') {
@@ -64,7 +68,9 @@ class NoticiasEventos extends Component
 
         // 3. FILTRAR CONVOCATORIAS (NUEVO)
         // Asumiendo que tu tabla de convocatorias tiene fecha_publicacion o created_at
-        $convocatoriasQuery = Convocatoria::where('activo', true)->orderBy('created_at', 'desc');
+        $convocatoriasQuery = Convocatoria::where('activo', true)
+            ->where('estado_publicacion', 'publicado')
+            ->orderBy('created_at', 'desc');
 
         if ($this->buscar) {
             $convocatoriasQuery->where(function ($q) {
