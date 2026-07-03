@@ -1,22 +1,10 @@
 <x-layout title="Transparencia - SIRESU">
 
-    <section class="bg-[#001B3A] py-16 md:py-24 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl mb-6 backdrop-blur-sm border border-white/20">
-                <x-heroicon-o-scale class="w-8 h-8 text-[#EAB308]" />
-            </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-                Portal de <span class="text-[#EAB308]">Transparencia</span>
-            </h1>
-            <p class="text-gray-300 max-w-2xl mx-auto text-lg">
-                Nuestro compromiso con la rendición de cuentas y la comunidad universitaria.
-            </p>
-        </div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#EAB308] rounded-full mix-blend-multiply filter blur-[100px] opacity-20"></div>
-    </section>
+    <x-page-banner titulo="Transparencia"
+        descripcion="Conoce cómo operamos y mantenemos la información pública disponible"
+        :isHome="false" />
 
-    <section class="py-16 bg-gray-50 relative z-20 -mt-8">
+    <section class="py-16 bg-gray-50 relative z-20 -mt-8 font-poppins">
         <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
             <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg shadow-gray-200/50 border border-gray-100">
                 

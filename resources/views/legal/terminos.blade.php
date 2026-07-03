@@ -1,22 +1,11 @@
 <x-layout title="Términos y Condiciones - SIRESU">
 
-    <section class="bg-[#001B3A] py-16 md:py-24 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div class="container mx-auto px-4 lg:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl mb-6 backdrop-blur-sm border border-white/20">
-                <x-heroicon-o-document-text class="w-8 h-8 text-[#EAB308]" />
-            </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-                Términos y <span class="text-[#EAB308]">Condiciones</span>
-            </h1>
-            <p class="text-gray-300 max-w-2xl mx-auto text-lg">
-                Reglas y lineamientos generales para el uso de nuestro portal.
-            </p>
-        </div>
-        <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#EAB308] rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-    </section>
+    <x-page-banner titulo="Términos y Condiciones"
+        descripcion="Reglas y lineamientos generales para el uso de nuestro portal"
+        :isHome="false" />
 
-    <section class="py-16 bg-gray-50 relative z-20 -mt-8">
+
+    <section class="py-16 bg-gray-50 relative z-20 -mt-8 font-poppins">
         <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
             <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg shadow-gray-200/50 border border-gray-100">
                 
