@@ -36,5 +36,5 @@ jobs:
     steps:
       - name: Ejecutar Script de Despliegue Local
         run: |
-          cd /home/siresu/htdocs_nuevo/
+          cd /home/siresu/htdocs_nuevo/siresu-unach-web
           ./deploy.sh
