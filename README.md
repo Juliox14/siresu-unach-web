@@ -14,7 +14,7 @@ La plataforma permite la administración eficiente de contenidos informativos y 
 
 ## 🛠️ Stack Tecnológico
 * **Framework:** [Laravel 11+](https://laravel.com)
-* **Panel Administrativo:** [Filament v3](https://filamentphp.com)
+* **Panel Administrativo:** [Filament v5](https://filamentphp.com)
 * **Estilos:** Tailwind CSS
 * **Base de Datos:** MySQL
 * **Gestión de Permisos:** Filament Shield (Spatie Permissions)
