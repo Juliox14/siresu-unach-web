@@ -34,13 +34,7 @@ jobs:
     needs: laravel-tests
 
     steps:
-    - name: Desplegar en el Servidor de la UNACH vía SSH
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        port: 22
-        script: |
+      - name: Ejecutar Script de Despliegue Local
+        run: |
+          cd /home/siresu/htdocs_nuevo/
           ./deploy.sh
