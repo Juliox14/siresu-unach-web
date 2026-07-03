@@ -1,0 +1,45 @@
+name: CI/CD Pipeline SIRESU
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configurar PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2.12'
+        extensions: mbstring, dom, curl, libxml, mysql, sqlite, pdo_sqlite
+
+    - name: Copiar Entorno de Pruebas
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    - name: Instalar Dependencias de Composer
+      run: composer install --q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Generar Encryption Key
+      run: php artisan key:generate
+
+    - name: Ejecutar Pruebas Automatizadas
+      run: php artisan test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: laravel-tests
+
+    steps:
+    - name: Desplegar en el Servidor de la UNACH vía SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          ./deploy.sh

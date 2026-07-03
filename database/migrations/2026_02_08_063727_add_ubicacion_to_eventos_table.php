@@ -11,20 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('eventos', function (Blueprint $table) {
-            // Agregamos los campos nuevos "después" de categoria para mantener orden
-            $table->string('ciudad')->nullable()->after('categoria');
-            $table->string('direccion')->nullable()->after('ciudad');
-            $table->text('mapa_iframe')->nullable()->after('direccion');
-        });
+        // Columns already added in create_eventos_table migration
     }
 
     public function down(): void
     {
-        Schema::table('eventos', function (Blueprint $table) {
-            // Por si queremos deshacer el cambio
-            $table->dropColumn(['ciudad', 'direccion', 'mapa_iframe']);
-        });
+        // Columns dropped when dropping events table
     }
 
 };
