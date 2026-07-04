@@ -33,6 +33,9 @@ composer install --no-dev --optimize-autoloader --no-interaction
 # 5. Correr migraciones del sistema
 php artisan migrate --force
 
+# 5.1 Crear enlace simbólico de almacenamiento publico
+php artisan storage:link
+
 # 6. Reconstruir cachés limpias
 php artisan config:cache
 php artisan route:cache
