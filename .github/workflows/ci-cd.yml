@@ -34,14 +34,9 @@ jobs:
     needs: laravel-tests
 
     steps:
-    - name: Desplegar en el Servidor de la UNACH vía SSH
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        script: |
-          cd /home/siresu/htdocs_nuevo/siresu-unach-web
-          chmod +x deploy.sh
-          ./deploy.sh
+    - name: Desplegar en el Servidor de la UNACH vía SSH Nativo
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > temp_key
+        chmod 600 temp_key
+        ssh -o StrictHostKeyChecking=no -i temp_key -p 22 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /home/siresu/htdocs_nuevo/siresu-unach-web && chmod +x deploy.sh && ./deploy.sh"
+        rm temp_key
