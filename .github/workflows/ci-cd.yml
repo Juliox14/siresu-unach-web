@@ -34,7 +34,10 @@ jobs:
     needs: laravel-tests
 
     steps:
+      - name: Descargar código del repositorio
+        uses: actions/checkout@v4
+    
       - name: Ejecutar Script de Despliegue Local
         run: |
-          cd /home/siresu/htdocs_nuevo/siresu-unach-web
+          cd ${{ github.workspace }}
           ./deploy.sh
