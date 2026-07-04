@@ -9,6 +9,7 @@ use App\Observers\DepartamentoObserver;
 use App\View\Composers\MenuComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Lang;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,5 +53,13 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Departamento::observe(DepartamentoObserver::class);
+
+        Lang::addLines([
+            'shield.nav.group' => 'Seguridad',
+        ], 'es', 'filament-shield');
+
+        Lang::addLines([
+            'shield.nav.group' => 'Seguridad',
+        ], 'en', 'filament-shield');
     }
 }
