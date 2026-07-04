@@ -15,7 +15,7 @@ mkdir -p "$DESTINO"
 
 # Sincronizamos directamente sobre htdocs_nuevo.
 # El flag --delete limpiará la subcarpeta vieja si quedó ahí colgada.
-rsync -avz --delete --exclude='.git' --exclude='.env' --exclude='storage' "$ORIGEN/" "$DESTINO/"
+rsync -avz --delete --exclude='.git' --exclude='.env' --exclude='storage' --exclude='public/storage' "$ORIGEN/" "$DESTINO/"
 
 # 2. Movernos a la carpeta de producción
 cd "$DESTINO"
@@ -36,9 +36,10 @@ php artisan migrate --force
 # 5.1 Crear enlace simbólico de almacenamiento publico
 php artisan storage:link
 
-# 6. Reconstruir cachés limpias
+
 php artisan config:cache
-php artisan route:cache
+php artisan route:clear
 php artisan view:cache
+php artisan storage:link --force
 
 echo "✅ ¡Despliegue completado con éxito en la raíz asignada!"
