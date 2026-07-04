@@ -34,24 +34,14 @@ jobs:
     needs: laravel-tests
 
     steps:
-    - name: Descargar código del repositorio
-      uses: actions/checkout@v4
-
-    # 🟢 NUEVO PASO: Configurar Node.js e instalar/compilar el Front en la nube
-    - name: Configurar Node.js y compilar Assets
-      uses: actions/setup-node@v4
+    - name: Desplegar en el Servidor de la UNACH vía SSH
+      uses: appleboy/ssh-action@v1.0.3
       with:
-        node-version: '20' # O la versión que uses en tu laptop
-    - name: Compilar Frontend (Vite)
-      run: |
-        npm install
-        npm run build
-
-    # Ejecutar tu script que moverá TODO (incluyendo la carpeta public/build) al servidor
-    - name: Ejecutar Script de Despliegue Local
-      env:
-        GITHUB_WORKSPACE: ${{ github.workspace }}
-      run: |
-        cd ${{ github.workspace }}
-        chmod +x deploy.sh
-        ./deploy.sh
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/siresu/htdocs_nuevo/siresu-unach-web
+          chmod +x deploy.sh
+          ./deploy.sh

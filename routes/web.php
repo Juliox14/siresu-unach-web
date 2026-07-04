@@ -29,6 +29,10 @@ Route::view('/terminos-y-condiciones', 'legal.terminos')->name('legal.terminos')
 Route::view('/transparencia', 'legal.transparencia')->name('legal.transparencia');
 Route::view('/aviso-de-privacidad', 'legal.privacidad')->name('legal.privacidad');
 
+Route::get('/debug-php', function() {
+    phpinfo();
+});
+
 Route::middleware([\Filament\Http\Middleware\Authenticate::class])
     ->prefix('admin/preview')
     ->name('admin.preview.')
