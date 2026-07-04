@@ -12,10 +12,6 @@ echo "Ruta de Destino (Web): $DESTINO"
 echo "Sincronizando archivos hacia la raíz web de producción..."
 mkdir -p "$DESTINO"
 
-# Importante:
-# - Excluye vendor y node_modules para no arrastrar dependencias del runner.
-# - Excluye artefactos de Laravel que no deben sobreescribirse.
-# - Mantiene --delete para eliminar archivos obsoletos en destino.
 rsync -avz --delete \
   --exclude='.git' \
   --exclude='.github' \
@@ -44,7 +40,10 @@ php artisan migrate --force
 echo "Limpiando/cacheando configuración..."
 php artisan optimize:clear
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+php artisan route:clear
+php artisan view:clear
 
-echo "¡Despliegue completado con éxito en la raíz asignada!"
+rm -f public/storage
+php artisan storage:link --no-interaction
+
+echo "Despliegue completado con éxito en la raíz asignada!"
