@@ -9,11 +9,11 @@
                     Más Información
                 </h4>
                 <ul class="space-y-4 text-gray-300 text-sm font-poppins">
-                    <li><a href="/" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Inicio</a></li>
-                    <li><a href="/acerca-de" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Acerca de</a></li>
-                    <li><a href="/noticias" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Noticias y eventos</a></li>
-                    <li><a href="/instalaciones" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Instalaciones</a></li>
-                    <li><a href="/directorio" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Directorio</a></li>
+                    <li><a href="{{ url('/') }}" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Inicio</a></li>
+                    <li><a href="{{ url('/acerca-de') }}" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Acerca de</a></li>
+                    <li><a href="{{ url('/noticias') }}" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Noticias y eventos</a></li>
+                    <li><a href="{{ url('/instalaciones') }}" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Instalaciones</a></li>
+                    <li><a href="{{ url('/directorio') }}" class="hover:text-white hover:translate-x-1 inline-block transition-all duration-300">Directorio</a></li>
                 </ul>
             </div>
 

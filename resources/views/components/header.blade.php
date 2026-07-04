@@ -89,7 +89,7 @@
                     @foreach ($enlacesFila1 as $enlace)
                         @php $isActive = verificarRutaActiva($enlace->url); @endphp
                         <li>
-                            <a href="{{ $enlace->url ?? '#' }}"
+                            <a href="{{ !empty($enlace->url) ? url($enlace->url) : '#' }}"
                                 class="hover:text-unach-dorado transition-colors {{ $isActive ? 'font-bold' : 'font-normal opacity-90' }}"
                                 @if ($enlace->nueva_pestana) target="_blank" @endif>
                                 {{ $enlace->titulo }}
@@ -113,7 +113,7 @@
 
                         @if ($enlace->es_menu_desplegable && $enlace->hijos->isNotEmpty())
                             <li x-data="{ open: false }" class="relative text-left" @mouseenter="open = true" @mouseleave="open = false">
-                                <a href="{{ $enlace->url ?? '#' }}"
+                                <a href="{{ !empty($enlace->url) ? url($enlace->url) : '#' }}"
                                     class="inline-flex items-center hover:text-unach-dorado transition-colors py-2 focus:outline-none {{ $isActive ? 'font-bold' : 'font-normal opacity-90' }}"
                                     @if ($enlace->nueva_pestana) target="_blank" @endif>
                                     {{ $enlace->titulo }}
@@ -131,7 +131,7 @@
                                     class="absolute right-0 mt-0 w-60 bg-white rounded-lg shadow-xl z-50 overflow-hidden border border-gray-100">
                                     @foreach ($enlace->hijos as $hijo)
                                         @php $isChildActive = verificarRutaActiva($hijo->url); @endphp
-                                        <a href="{{ $hijo->url }}"
+                                        <a href="{{ url($hijo->url) }}"
                                             class="block px-5 py-3 text-sm hover:bg-unach-fondo hover:text-unach-azul border-b border-gray-50 last:border-0 transition-colors {{ $isChildActive ? 'font-bold text-unach-azul' : 'font-normal text-unach-gris-texto' }}"
                                             @if ($hijo->nueva_pestana) target="_blank" @endif>
                                             {{ $hijo->titulo }}
@@ -141,7 +141,7 @@
                             </li>
                         @else
                             <li>
-                                <a href="{{ $enlace->url ?? '#' }}"
+                                <a href="{{ !empty($enlace->url) ? url($enlace->url) : '#' }}"
                                     class="inline-block hover:text-unach-dorado transition-colors py-2 border-b-2 hover:border-unach-dorado {{ $isActive ? 'font-bold border-unach-dorado' : 'font-normal border-transparent opacity-90' }}"
                                     @if ($enlace->nueva_pestana) target="_blank" @endif>
                                     {{ $enlace->titulo }}
@@ -177,7 +177,7 @@
             <div class="flex flex-col space-y-3 pb-4 border-b border-white/20 uppercase tracking-wide text-sm">
                 @foreach ($enlacesFila1 as $enlace)
                     @php $isActive = verificarRutaActiva($enlace->url); @endphp
-                    <a href="{{ $enlace->url ?? '#' }}"
+                    <a href="{{ !empty($enlace->url) ? url($enlace->url) : '#' }}"
                         class="hover:text-unach-dorado transition-colors {{ $isActive ? 'font-bold text-unach-dorado' : 'font-normal text-white/90' }}"
                         @if ($enlace->nueva_pestana) target="_blank" @endif>
                         {{ $enlace->titulo }}
@@ -202,7 +202,7 @@
                             <div x-show="open" x-collapse style="display: none;" class="flex flex-col pl-4 mt-2 space-y-3 border-l-2 border-unach-dorado/50">
                                 @foreach ($enlace->hijos as $hijo)
                                     @php $isChildActive = verificarRutaActiva($hijo->url); @endphp
-                                    <a href="{{ $hijo->url }}"
+                                    <a href="{{ url($hijo->url) }}"
                                         class="py-1 text-xs hover:text-unach-dorado transition-colors {{ $isChildActive ? 'font-bold text-unach-dorado' : 'font-normal text-white/70' }}"
                                         @if ($hijo->nueva_pestana) target="_blank" @endif>
                                         {{ $hijo->titulo }}
@@ -211,7 +211,7 @@
                             </div>
                         </div>
                     @else
-                        <a href="{{ $enlace->url ?? '#' }}"
+                        <a href="{{ !empty($enlace->url) ? url($enlace->url) : '#' }}"
                             class="py-2 hover:text-unach-dorado transition-colors {{ $isActive ? 'font-bold text-unach-dorado' : 'font-normal text-white/90' }}"
                             @if ($enlace->nueva_pestana) target="_blank" @endif>
                             {{ $enlace->titulo }}
