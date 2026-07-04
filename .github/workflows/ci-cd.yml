@@ -30,13 +30,46 @@ jobs:
       run: php artisan test
 
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: laravel-tests
 
     steps:
-    - name: Desplegar en el Servidor de la UNACH vía SSH Nativo
+    - name: Descargar código del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Compilar Frontend (Vite)
+      run: |
+        npm install
+        npm run build
+
+    - name: Configurar llave SSH
       run: |
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > temp_key
         chmod 600 temp_key
-        ssh -o StrictHostKeyChecking=no -i temp_key -p 22 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /home/siresu/htdocs_nuevo/siresu-unach-web && chmod +x deploy.sh && ./deploy.sh"
-        rm temp_key
+
+    - name: Sincronizar archivos al servidor vía Rsync
+      run: |
+        rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i temp_key -p 22" \
+          --exclude='.git' \
+          --exclude='.env' \
+          --exclude='storage' \
+          ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/siresu/htdocs_nuevo/
+
+    - name: Ejecutar tareas post-despliegue en el servidor
+      run: |
+        ssh -o StrictHostKeyChecking=no -i temp_key -p 22 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+          cd /home/siresu/htdocs_nuevo &&
+          composer install --no-dev --optimize-autoloader --no-interaction &&
+          php artisan migrate --force &&
+          php artisan config:cache &&
+          php artisan route:cache &&
+          php artisan view:cache
+        "
+
+    - name: Limpiar llave temporal
+      run: rm temp_key
