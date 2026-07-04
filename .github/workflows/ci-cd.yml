@@ -1,10 +1,11 @@
-name: CI/CD Pipeline SIRESU
+name: Laravel SIRESU CI/CD
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
+  # 1. TRABAJO DE PRUEBAS (CI)
   laravel-tests:
     runs-on: ubuntu-latest
 
@@ -14,30 +15,35 @@ jobs:
     - name: Configurar PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2.12'
-        extensions: mbstring, dom, curl, libxml, mysql, sqlite, pdo_sqlite
+        php-version: '8.2' # Cambia a la versión de PHP que manejes
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
+        coverage: none
 
-    - name: Copiar Entorno de Pruebas
+    - name: Copiar .env de pruebas
       run: cp .env.example .env
 
     - name: Instalar Dependencias de Composer
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    - name: Generar Encryption Key
+    - name: Generar Llave de Aplicación
       run: php artisan key:generate
 
-    - name: Ejecutar Pruebas Automatizadas
+    - name: Directorios de Permisos
+      run: chmod -R 777 storage bootstrap/cache
+
+    - name: Ejecutar Pruebas
       run: php artisan test
 
+  # 2. TRABAJO DE DESPLIEGUE (CD)
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: laravel-tests
 
     steps:
     - name: Descargar código del repositorio
       uses: actions/checkout@v4
 
-    - name: Configurar Node.js
+    - name: Configurar Node.js y compilar Assets
       uses: actions/setup-node@v4
       with:
         node-version: '20'
@@ -47,29 +53,10 @@ jobs:
         npm install
         npm run build
 
-    - name: Configurar llave SSH
+    - name: Ejecutar Script de Despliegue Local
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}
       run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > temp_key
-        chmod 600 temp_key
-
-    - name: Sincronizar archivos al servidor vía Rsync
-      run: |
-        rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -i temp_key -p 22" \
-          --exclude='.git' \
-          --exclude='.env' \
-          --exclude='storage' \
-          ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/siresu/htdocs_nuevo/
-
-    - name: Ejecutar tareas post-despliegue en el servidor
-      run: |
-        ssh -o StrictHostKeyChecking=no -i temp_key -p 22 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
-          cd /home/siresu/htdocs_nuevo &&
-          composer install --no-dev --optimize-autoloader --no-interaction &&
-          php artisan migrate --force &&
-          php artisan config:cache &&
-          php artisan route:cache &&
-          php artisan view:cache
-        "
-
-    - name: Limpiar llave temporal
-      run: rm temp_key
+        cd ${{ github.workspace }}
+        chmod +x deploy.sh
+        ./deploy.sh
