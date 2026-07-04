@@ -34,6 +34,5 @@ php artisan view:clear
 
 php artisan config:cache
 php artisan route:clear
-php artisan storage:link --force
 
 echo "¡Despliegue completado con éxito en la raíz asignada!"
