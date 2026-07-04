@@ -26,13 +26,8 @@ composer install --no-dev --optimize-autoloader --no-interaction
 
 php artisan migrate --force
 
-php artisan storage:link
-
-mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs
-
-php artisan view:clear
-
 php artisan config:cache
 php artisan route:clear
+php artisan view:clear
 
 echo "¡Despliegue completado con éxito en la raíz asignada!"
