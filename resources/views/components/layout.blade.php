@@ -10,6 +10,8 @@
 
     <title>{{ $title }}</title>
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +19,7 @@
 </head>
 
 
-<body class="font-sans antialiased bg-[#0038C3] text-[#001B3A] flex flex-col min-h-screen">
+<body class="font-sans antialiased bg-unach-azul text-[#001B3A] flex flex-col min-h-screen">
     <x-header />
 
     <main class="grow">

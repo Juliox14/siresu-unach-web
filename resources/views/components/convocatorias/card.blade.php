@@ -4,7 +4,7 @@
 
     <div class="relative h-48 overflow-hidden bg-unach-fondo">
         
-        <img src="{{ asset('storage/' . $convocatoria->imagen) }}"
+        <img src="{{ str_starts_with($convocatoria->imagen, 'http') ? $convocatoria->imagen : asset('storage/' . $convocatoria->imagen) }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             alt="{{ $convocatoria->titulo }}">
 
@@ -47,7 +47,7 @@
         </div>
 
         <div>
-            <a href="{{ route('convocatorias.show', $convocatoria->slug) }}" target="_blank"
+            <a href="{{ isset($convocatoria->is_api) && $convocatoria->is_api ? $convocatoria->url : route('convocatorias.show', $convocatoria->slug) }}" target="_blank"
                 class="flex items-center justify-between w-full bg-unach-fondo hover:bg-unach-dorado text-unach-azul-oscuro font-bold px-5 py-3.5 rounded-xl transition-all duration-300 group/btn">
                 <span class="text-sm">Ver detalles</span>
                 <x-heroicon-m-arrow-right class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />

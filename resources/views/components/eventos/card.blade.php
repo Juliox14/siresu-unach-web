@@ -4,7 +4,7 @@
     {{ $attributes->merge(['class' => 'bg-white rounded-lg shadow-sm overflow-hidden transition duration-300 hover:shadow-md cursor-pointer h-full flex flex-col group']) }}>
 
     <div class="relative h-36 overflow-hidden bg-gray-100">
-        <img src="{{ asset('storage/' . $evento->imagen) }}"
+        <img src="{{ str_starts_with($evento->imagen, 'http') ? $evento->imagen : asset('storage/' . $evento->imagen) }}"
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             alt="{{ $evento->titulo }}">
 

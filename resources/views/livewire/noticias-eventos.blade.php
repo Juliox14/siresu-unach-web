@@ -34,6 +34,7 @@
                         <select wire:model.live="departamento_id"
                             class="w-full pl-4 pr-10 py-3 bg-unach-fondo border-transparent focus:bg-white rounded-xl focus:ring-2 focus:ring-unach-dorado focus:border-unach-dorado text-sm text-unach-azul-oscuro appearance-none cursor-pointer transition-all outline-none">
                             <option value="">Todos los departamentos</option>
+                            <option value="general">Generales de la UNACH</option>
                             @foreach ($departamentos as $depto)
                                 <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
                             @endforeach
@@ -166,10 +167,16 @@
                             @if ($eventos && $eventos->count() > 0)
                                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                                     @foreach ($eventos as $evento)
-                                        <div class="h-full" x-data="{ open: false }">
-                                            <x-eventos.card :evento="$evento" @click="open = true" />
-                                            <x-eventos.modal :evento="$evento" />
-                                        </div>
+                                        @if (isset($evento->is_api) && $evento->is_api)
+                                            <a href="{{ $evento->url }}" target="_blank" class="block h-full">
+                                                <x-eventos.card :evento="$evento" />
+                                            </a>
+                                        @else
+                                            <div class="h-full" x-data="{ open: false }">
+                                                <x-eventos.card :evento="$evento" @click="open = true" />
+                                                <x-eventos.modal :evento="$evento" />
+                                            </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             @else

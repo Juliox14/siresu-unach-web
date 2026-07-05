@@ -16,11 +16,15 @@
         @forelse ($eventos as $evento)
             <div x-data="{ open: false }" class="relative bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group">
                 
-                <div @click="open = true" class="flex flex-col cursor-pointer h-full">
+                @if (isset($evento->is_api) && $evento->is_api)
+                    <a href="{{ $evento->url }}" target="_blank" class="flex flex-col h-full">
+                @else
+                    <div @click="open = true" class="flex flex-col cursor-pointer h-full">
+                @endif
                     
                     <!-- IMAGEN SUPERIOR -->
                     <div class="relative w-full h-48 overflow-hidden bg-unach-fondo">
-                        <img src="{{ asset('storage/' . $evento->imagen) }}" alt="{{ $evento->titulo }}" 
+                        <img src="{{ str_starts_with($evento->imagen, 'http') ? $evento->imagen : asset('storage/' . $evento->imagen) }}" alt="{{ $evento->titulo }}" 
                              class="w-full h-full object-cover">
                         
                         <!-- FECHA SUPERPUESTA -->
@@ -51,9 +55,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <x-eventos.modal :evento="$evento" />
+                @if (isset($evento->is_api) && $evento->is_api)
+                    </a>
+                @else
+                    </div>
+                    <x-eventos.modal :evento="$evento" />
+                @endif
             </div>
         @empty
             <p class="col-span-full text-center text-unach-gris-texto py-10">No hay eventos próximos.</p>

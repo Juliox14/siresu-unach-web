@@ -2,7 +2,7 @@
     class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition-all duration-300 flex flex-col h-full relative cursor-pointer font-poppins">
 
     <div class="relative h-36 overflow-hidden bg-gray-100">
-        <img src="{{ asset('storage/' . $noticia->imagen_portada) }}" alt="{{ $noticia->titulo }}"
+        <img src="{{ str_starts_with($noticia->imagen_portada, 'http') ? $noticia->imagen_portada : asset('storage/' . $noticia->imagen_portada) }}" alt="{{ $noticia->titulo }}"
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 
         <div
@@ -20,7 +20,9 @@
         <div>
             <h3
                 class="text-base font-bold text-[#001B3A] leading-snug mb-2 group-hover:text-[#EAB308] transition-colors line-clamp-2">
-                <a href="{{ route('noticias-eventos.show-noticia', $noticia->slug) }}" class="focus:outline-none">
+                <a href="{{ isset($noticia->is_api) && $noticia->is_api ? $noticia->url : route('noticias-eventos.show-noticia', $noticia->slug) }}" 
+                   target="{{ isset($noticia->is_api) && $noticia->is_api ? '_blank' : '_self' }}"
+                   class="focus:outline-none">
                     <span class="absolute inset-0" aria-hidden="true"></span>
                     {{ $noticia->titulo }}
                 </a>
