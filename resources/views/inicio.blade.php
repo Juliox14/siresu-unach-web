@@ -5,7 +5,8 @@
         :isHome="true" :redes="\App\Models\RedSocial::all()" />
 
     {{-- Ajuste móvil: px-24 se volvió dinámico (px-5 md:px-12 lg:px-24) y gap-12 se ajustó a gap-8 en celulares --}}
-    <div class="relative flex flex-col gap-8 md:gap-12 z-20 -mt-10 md:-mt-16 bg-white rounded-t-[3rem] md:rounded-t-[4rem] pt-8 px-5 md:px-12 lg:px-24 pb-20 font-poppins shadow-xl">
+    <div
+        class="relative flex flex-col gap-8 md:gap-12 z-20 -mt-10 md:-mt-16 bg-white rounded-t-[3rem] md:rounded-t-[4rem] pt-8 px-5 md:px-12 lg:px-24 pb-20 font-poppins shadow-xl">
 
         <x-inicio.enlaces-rapidos :enlaces="$enlaces" />
 
@@ -13,11 +14,8 @@
             <x-convocatorias.section :convocatorias="$convocatorias" />
         </div>
 
-        @if ($eventos && $eventos->isNotEmpty())
-            <x-eventos.calendario-section :eventos="$eventos" />
-        @else
-            <p class="text-center text-unach-gris-texto opacity-70 py-8">No hay eventos programados en este momento.</p>
-        @endif
+        <x-eventos.calendario-section :eventos="$eventos" />
+
 
         @if ($instalacionDestacada)
             <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100">
@@ -25,11 +23,8 @@
             </div>
         @endif
 
-        @if ($noticias && $noticias->isNotEmpty())
-            <x-noticias.section :noticias="$noticias" />
-        @else
-            <p class="text-center text-unach-gris-texto opacity-70 py-8">No hay noticias disponibles en este momento.</p>
-        @endif
+ s       <x-noticias.section :noticias="$noticias" />
+
 
     </div>
 

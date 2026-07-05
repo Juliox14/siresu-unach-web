@@ -22,8 +22,7 @@
                 </a>
             </div>
         </div>
-
-        <!-- === GRID DE NOTICIAS === -->
+                <!-- === GRID DE NOTICIAS === -->
         <!-- Mantenemos la estructura de 4 columnas, asegurando espacios consistentes -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @forelse ($noticias as $noticia)
