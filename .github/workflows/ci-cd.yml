@@ -98,3 +98,4 @@ jobs:
           cd ${{ github.workspace }}
           chmod +x deploy.sh
           ./deploy.sh
+          
