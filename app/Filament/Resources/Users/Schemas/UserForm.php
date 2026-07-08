@@ -28,9 +28,9 @@ class UserForm
                 TextInput::make('password')
                     ->label('Contraseña')
                     ->password()
-                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                    ->dehydrated(fn($state) => filled($state))
-                    ->required(fn(string $context): bool => $context === 'create')
+                    ->helperText(fn(string $context): string => $context === 'create' 
+                        ? 'Si se deja en blanco, se generará una contraseña segura aleatoria y se enviará por correo.' 
+                        : 'Dejar en blanco para mantener la contraseña actual.')
                     ->maxLength(255),
 
 
