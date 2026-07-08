@@ -23,7 +23,7 @@
             </div>
         @endif
 
- s       <x-noticias.section :noticias="$noticias" />
+        <x-noticias.section :noticias="$noticias" />
 
 
     </div>
