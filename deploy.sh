@@ -9,10 +9,9 @@ DESTINO="/home/siresu/htdocs_nuevo"
 echo "Ruta de Origen (Runner): $ORIGEN"
 echo "Ruta de Destino (Web): $DESTINO"
 
-echo "Sincronizando archivos hacia la raíz web de producción..."
-mkdir -p "$DESTINO"
+echo "Sincronizando archivos hacia la raiz web de produccion..."
 
-rsync -avz --delete \
+rsync -az --delete \
   --exclude='.git' \
   --exclude='.github' \
   --exclude='.env' \
@@ -26,24 +25,22 @@ rsync -avz --delete \
 cd "$DESTINO"
 
 if [ ! -f .env ]; then
-    echo "ERROR: No se encontró el archivo .env en $DESTINO."
-    echo "Por favor, créalo manualmente por SSH en la raíz de htdocs_nuevo antes de continuar."
+    echo "ERROR: No se encontro el archivo .env en $DESTINO."
+    echo "Por favor, crealo manualmente por SSH en la raiz de htdocs_nuevo antes de continuar."
     exit 1
 fi
 
 echo "Instalando dependencias PHP en servidor destino..."
-composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-progress
+composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-progress --no-scripts
 
 echo "Ejecutando migraciones..."
 php artisan migrate --force
 
-echo "Limpiando/cacheando configuración..."
+echo "Limpiando/cacheando configuracion..."
 php artisan optimize:clear
 php artisan config:cache
-php artisan route:clear
-php artisan view:clear
 
 rm -f public/storage
 php artisan storage:link --no-interaction
 
-echo "Despliegue completado con éxito en la raíz asignada!"
+echo "Despliegue completado con exito en la raiz asignada!"
