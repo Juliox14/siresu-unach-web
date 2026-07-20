@@ -1,4 +1,7 @@
-<x-layout title="Transparencia - SIRESU">
+<x-layout 
+    title="Transparencia y Acceso a la Información - SIRESU UNACH"
+    description="Información pública oficial, principios de operación, oficinas y datos de contacto de la Secretaría de Identidad y Responsabilidad Social Universitaria (SIRESU) de la UNACH."
+>
 
     <x-page-banner titulo="Transparencia"
         descripcion="Conoce cómo operamos y mantenemos la información pública disponible"

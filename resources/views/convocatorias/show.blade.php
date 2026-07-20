@@ -1,4 +1,9 @@
-<x-layout :title="$convocatoria->titulo . ' - SIRESU'">
+<x-layout 
+    title="{{ $convocatoria->titulo }} - SIRESU UNACH"
+    description="{{ strip_tags($convocatoria->descripcion ?? \Illuminate\Support\Str::limit(strip_tags($convocatoria->descripcion_detallada), 160)) }}"
+    image="{{ $convocatoria->imagen ? asset('storage/' . $convocatoria->imagen) : null }}"
+    canonical="{{ route('convocatorias.show', $convocatoria->slug) }}"
+>
     
     <!-- Barra superior de navegación -->
     <div class="bg-unach-fondo py-4 border-b border-gray-200 font-poppins">

@@ -1,4 +1,9 @@
-<x-layout :title="$departamento->nombre . ' - SIRESU'">
+<x-layout 
+    title="Dirección {{ $departamento->nombre }} - SIRESU UNACH"
+    description="{{ strip_tags($departamento->subtitulo ?? \Illuminate\Support\Str::limit(strip_tags($departamento->descripcion), 160)) }}"
+    image="{{ $departamento->imagen_portada ? asset('storage/' . $departamento->imagen_portada) : null }}"
+    canonical="{{ route('direcciones.show', $departamento->slug) }}"
+>
 
     <x-page-banner titulo="Dirección {{ $departamento->nombre }}" :descripcion="$departamento->subtitulo ?? null" :isHome="false"
         :redes="\App\Models\RedSocial::all()" />

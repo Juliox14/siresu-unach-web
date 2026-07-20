@@ -1,4 +1,7 @@
-<x-layout :title="'Acerca de - SIRESU UNACH'">
+<x-layout 
+    title="Acerca de SIRESU - Secretaría de Identidad y Responsabilidad Social Universitaria - UNACH"
+    description="Conoce más sobre la misión, visión, valores y estructura organizacional de la SIRESU UNACH. Nuestro compromiso es impulsar el bienestar social y la identidad universitaria."
+>
     <x-page-banner titulo="Acerca de SIRESU"
         descripcion="Conoce más sobre nuestra misión, visión, valores y la estructura organizacional que impulsa el bienestar de nuestra comunidad universitaria."
         :isHome="false" :redes="\App\Models\RedSocial::all()" />

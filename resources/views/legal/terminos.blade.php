@@ -1,4 +1,7 @@
-<x-layout title="Términos y Condiciones - SIRESU">
+<x-layout 
+    title="Términos y Condiciones de Uso - SIRESU UNACH"
+    description="Términos y condiciones de uso del portal web oficial de la Secretaría de Identidad y Responsabilidad Social Universitaria (SIRESU) de la UNACH."
+>
 
     <x-page-banner titulo="Términos y Condiciones"
         descripcion="Reglas y lineamientos generales para el uso de nuestro portal"

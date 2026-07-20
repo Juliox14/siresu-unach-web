@@ -1,4 +1,9 @@
-<x-layout title="{{ $noticia->titulo }} - SIRESU">
+<x-layout 
+    title="{{ $noticia->titulo }} - SIRESU UNACH"
+    description="{{ strip_tags($noticia->resumen ?? \Illuminate\Support\Str::limit(strip_tags($noticia->contenido), 160)) }}"
+    image="{{ $noticia->imagen_portada ? asset('storage/' . $noticia->imagen_portada) : null }}"
+    canonical="{{ route('noticias-eventos.show-noticia', $noticia->slug) }}"
+>
     <div class="bg-gray-50 py-4 border-b border-gray-200">
         <div class="container mx-auto px-4 lg:px-8">
             <a href="{{ route('noticias.index') }}" class="inline-flex items-center text-sm font-bold text-[#001B3A] hover:text-[#EAB308] transition-colors">

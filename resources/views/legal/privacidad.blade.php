@@ -1,4 +1,7 @@
-<x-layout title="Aviso de Privacidad - SIRESU">
+<x-layout 
+    title="Aviso de Privacidad - SIRESU UNACH"
+    description="Aviso de privacidad y protección de datos personales de la Secretaría de Identidad y Responsabilidad Social Universitaria (SIRESU) de la UNACH."
+>
 
     <x-page-banner titulo="Aviso de Privacidad"
         descripcion="Conoce cómo protegemos, respetamos y manejamos tu información"

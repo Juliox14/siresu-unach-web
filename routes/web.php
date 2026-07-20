@@ -10,6 +10,7 @@ use App\Http\Controllers\InstalacionController;
 use App\Http\Controllers\ConvocatoriaController;
 
 Route::get('/', InicioController::class)->name('inicio');
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
 Route::get('/acerca-de', [AcercaDeController::class, 'show'])->name('acerca-de');
 

@@ -1,4 +1,7 @@
-<x-layout title="Tablero Informativo - SIRESU">
+<x-layout 
+    title="Tablero Informativo: Noticias, Eventos y Convocatorias - SIRESU UNACH"
+    description="Entérate de las últimas noticias, eventos y convocatorias oficiales de la SIRESU UNACH. Mantente conectado con el acontecer institucional de nuestra universidad."
+>
     <x-page-banner titulo="Tablero Informativo"
         descripcion="Mantente informado sobre las últimas noticias, eventos y convocatorias de la SIRESU. Descubre lo que está sucediendo en nuestra institución y participa en nuestras iniciativas."
         :isHome="false" :redes="\App\Models\RedSocial::all()" />

@@ -1,4 +1,7 @@
-<x-layout title="Instalaciones - SIRESU">
+<x-layout 
+    title="Instalaciones y Recintos Universitarios - SIRESU UNACH"
+    description="Explora las instalaciones deportivas, académicas y recreativas de la SIRESU UNACH. Espacios de primer nivel a disposición de nuestra comunidad y público general."
+>
     
     <!-- === BANNER PRINCIPAL === -->
     <x-page-banner titulo="Instalaciones de la SIRESU"

@@ -17,7 +17,7 @@
 <body>
     <div class="card">
         <div class="header">
-            <img src="{{ asset('images/logo-unach-color.png') }}" alt="Logo UNACH" style="width: 80px; margin-bottom: 10px;">
+            <img src="{{ asset('images/logo-unach.png') }}" alt="Logo UNACH" style="width: 80px; margin-bottom: 10px;">
             <h1>SIRESU - UNACH</h1>
         </div>
         <div class="content">

@@ -1,4 +1,11 @@
-@props(['title' => 'SIRESU - UNACH'])
+@props([
+    'title' => 'SIRESU - Secretaría de Identidad y Responsabilidad Social Universitaria - UNACH',
+    'description' => 'Secretaría de Identidad y Responsabilidad Social Universitaria (SIRESU) de la Universidad Autónoma de Chiapas. Promoviendo el desarrollo, el bienestar y la comunicación de nuestra comunidad.',
+    'keywords' => 'SIRESU, UNACH, Universidad Autónoma de Chiapas, identidad universitaria, responsabilidad social, Chiapas, convocatorias, eventos, noticias',
+    'image' => null,
+    'canonical' => null,
+    'robots' => 'index, follow',
+])
 
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
@@ -9,6 +16,28 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title }}</title>
+
+    <!-- Meta Tags SEO -->
+    <meta name="description" content="{{ $description }}">
+    <meta name="keywords" content="{{ $keywords }}">
+    <meta name="robots" content="{{ $robots }}">
+    
+    <!-- URL Canónica -->
+    <link rel="canonical" href="{{ $canonical ?? request()->url() }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $canonical ?? request()->url() }}">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:image" content="{{ $image ?? asset('images/logo-siresu-color.png') }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ $canonical ?? request()->url() }}">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:image" content="{{ $image ?? asset('images/logo-siresu-color.png') }}">
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 

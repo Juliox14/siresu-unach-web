@@ -1,4 +1,7 @@
-<x-layout :title="'Secretaría de Identidad y Responsabilidad Social Universitaria'">
+<x-layout 
+    title="Secretaría de Identidad y Responsabilidad Social Universitaria - SIRESU UNACH"
+    description="Portal oficial de la Secretaría de Identidad y Responsabilidad Social Universitaria (SIRESU) de la UNACH. Conoce nuestros programas, convocatorias, eventos y noticias."
+>
 
     <x-page-banner titulo="Secretaría de Identidad y Responsabilidad Social Universitaria"
         descripcion="Promovemos el desarrollo, el bienestar y la comunicación efectiva de nuestra comunidad universitaria."

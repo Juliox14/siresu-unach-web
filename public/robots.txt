@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /debug-php
+
+Sitemap: https://siresu.unach.mx/sitemap.xml
