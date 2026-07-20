@@ -62,7 +62,11 @@
             <div class="flex items-center space-x-2 md:space-x-4">
                 <div class="flex items-center space-x-2 md:space-x-3 shrink-0">
                     @foreach ($headerLogos as $logo)
-                        <img src="{{ asset('storage/' . $logo->imagen) }}" alt="{{ $logo->nombre }}" class="h-8 md:h-12 lg:h-14 w-auto object-contain">
+                        <img src="{{ asset('storage/' . $logo->imagen) }}" 
+                             alt="{{ $logo->nombre }}" 
+                             width="120"
+                             height="56"
+                             class="h-8 md:h-12 lg:h-14 w-auto object-contain">
                     @endforeach
                 </div>
 

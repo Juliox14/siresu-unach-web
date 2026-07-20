@@ -60,6 +60,8 @@
                  style="width: clamp(160px, 24vw, 340px);">
                 <img src="{{ $imagen }}"
                      alt="Ilustración"
+                     width="340"
+                     height="340"
                      class="relative w-full h-auto object-contain"
                      style="
                          opacity: 0.85;

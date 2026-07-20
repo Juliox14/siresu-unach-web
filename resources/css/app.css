@@ -1,5 +1,4 @@
-/* 1. Actualizamos el import para incluir Poppins (pesos 400 regular y 700 bold) */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;700&display=swap');
+/* Las fuentes de Google se cargan directamente en el HTML head de layout.blade.php para optimizar FCP y LCP */
 
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
