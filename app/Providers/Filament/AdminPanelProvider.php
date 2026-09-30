@@ -62,7 +62,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
-                    ->navigationGroup('Seguridad'),
+                    ->navigationGroup('Seguridad')
+                    ->navigationIcon(null),
             ])
             ->navigationGroups([
 

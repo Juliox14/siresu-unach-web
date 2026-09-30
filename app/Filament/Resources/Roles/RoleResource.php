@@ -50,6 +50,11 @@ class RoleResource extends Resource
         return 'Seguridad';
     }
 
+    public static function getNavigationIcon(): string | \BackedEnum | \Illuminate\Contracts\Support\Htmlable | null
+    {
+        return null;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return $schema
