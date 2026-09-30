@@ -62,8 +62,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
-                    ->navigationGroup('Seguridad')
-                    ->navigationIcon(null),
+                    ->navigationGroup('Seguridad'),
             ])
             ->navigationGroups([
 
@@ -92,8 +91,7 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-building-library'),
 
                 NavigationGroup::make()
-                    ->label('Seguridad')
-                    ->icon('heroicon-o-shield-check'),
+                    ->label('Seguridad'),
                 
                 
             ]);

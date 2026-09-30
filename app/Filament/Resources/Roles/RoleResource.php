@@ -21,6 +21,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Illuminate\Database\Eloquent\Model;
 use UnitEnum;
+use BackedEnum;
 use Filament\Panel;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Grid;
@@ -44,15 +45,11 @@ class RoleResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
     
     protected static string | UnitEnum | null $navigationGroup = 'Seguridad';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-shield-check';
 
     public static function getNavigationGroup(): string | UnitEnum | null
     {
         return 'Seguridad';
-    }
-
-    public static function getNavigationIcon(): string | \BackedEnum | \Illuminate\Contracts\Support\Htmlable | null
-    {
-        return null;
     }
 
     public static function form(Schema $schema): Schema
