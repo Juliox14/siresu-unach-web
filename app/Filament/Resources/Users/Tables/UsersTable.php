@@ -19,7 +19,8 @@ class UsersTable
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
-                TextColumn::make('rol')
+                TextColumn::make('roles.name')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('email_verified_at')
                     ->dateTime()

@@ -25,7 +25,7 @@ class UserResource extends Resource
     protected static ?string $modelLabel = 'Usuario';
     protected static ?string $pluralModelLabel = 'Usuarios';
 
-    protected static string | UnitEnum | null $navigationGroup = 'Filament Shield';
+    protected static string | UnitEnum | null $navigationGroup = 'Seguridad';
     
 
 

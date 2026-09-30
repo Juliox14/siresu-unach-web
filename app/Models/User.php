@@ -59,7 +59,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return in_array($this->rol, ['super_admin', 'editor']);
+        return $this->roles()->exists();
     }
 
     public function isAdmin()
@@ -67,8 +67,18 @@ class User extends Authenticatable implements FilamentUser
         return $this->rol === 'admin';
     }
 
-    public function isEditor()
+    public function canReviewNoticias(): bool
     {
-        return $this->rol === 'editor';
+        return $this->hasRole('super_admin') || $this->can('Review:Noticia');
+    }
+
+    public function canReviewEventos(): bool
+    {
+        return $this->hasRole('super_admin') || $this->can('Review:Evento');
+    }
+
+    public function canReviewConvocatorias(): bool
+    {
+        return $this->hasRole('super_admin') || $this->can('Review:Convocatoria');
     }
 }
