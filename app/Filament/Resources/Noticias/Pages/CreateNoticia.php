@@ -14,7 +14,7 @@ class CreateNoticia extends CreateRecord
     {
         if (
             \App\Models\Configuracion::requiereAprobacionNoticias() && 
-            Auth::user()?->rol !== 'super_admin'
+            !Auth::user()?->canReviewNoticias()
         ) {
             $data['estado_publicacion'] = 'revision';
         } else {

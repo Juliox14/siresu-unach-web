@@ -87,7 +87,7 @@ class NoticiasTable
                     ->label('Aprobar')
                     ->icon('heroicon-o-check')
                     ->color('success')
-                    ->visible(fn (\App\Models\Noticia $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->visible(fn (\App\Models\Noticia $record) => Auth::user()?->canReviewNoticias() && $record->estado_publicacion === 'revision')
                     ->action(function (\App\Models\Noticia $record) {
                         $record->update(['estado_publicacion' => 'publicado', 'comentarios_revision' => null]);
                         \Filament\Notifications\Notification::make()->title('Publicada')->success()->send();
@@ -96,7 +96,7 @@ class NoticiasTable
                     ->label('Rechazar')
                     ->icon('heroicon-o-x-mark')
                     ->color('danger')
-                    ->visible(fn (\App\Models\Noticia $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->visible(fn (\App\Models\Noticia $record) => Auth::user()?->canReviewNoticias() && $record->estado_publicacion === 'revision')
                     ->schema([
                         Textarea::make('comentarios_revision')
                             ->label('Comentarios')

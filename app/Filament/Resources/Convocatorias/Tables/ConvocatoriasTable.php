@@ -79,7 +79,7 @@ class ConvocatoriasTable
                     ->label('Aprobar')
                     ->icon('heroicon-o-check')
                     ->color('success')
-                    ->visible(fn (\App\Models\Convocatoria $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->visible(fn (\App\Models\Convocatoria $record) => Auth::user()?->canReviewConvocatorias() && $record->estado_publicacion === 'revision')
                     ->action(function (\App\Models\Convocatoria $record) {
                         $record->update(['estado_publicacion' => 'publicado', 'comentarios_revision' => null]);
                         \Filament\Notifications\Notification::make()->title('Publicada')->success()->send();
@@ -88,7 +88,7 @@ class ConvocatoriasTable
                     ->label('Rechazar')
                     ->icon('heroicon-o-x-mark')
                     ->color('danger')
-                    ->visible(fn (\App\Models\Convocatoria $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->visible(fn (\App\Models\Convocatoria $record) => Auth::user()?->canReviewConvocatorias() && $record->estado_publicacion === 'revision')
                     ->schema([
                         Textarea::make('comentarios_revision')
                             ->label('Comentarios')
@@ -97,9 +97,7 @@ class ConvocatoriasTable
                     ->action(function (\App\Models\Convocatoria $record, array $data) {
                         $record->update(['estado_publicacion' => 'rechazado', 'comentarios_revision' => $data['comentarios_revision']]);
                         \Filament\Notifications\Notification::make()->title('Rechazada')->warning()->send();
-                    })
-                    ->visible(fn (\App\Models\Convocatoria $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
-                ,
+                    }),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

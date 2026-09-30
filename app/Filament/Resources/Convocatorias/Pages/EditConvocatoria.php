@@ -20,7 +20,7 @@ class EditConvocatoria extends EditRecord
                 ->label('Aprobar Publicación')
                 ->color('success')
                 ->icon('heroicon-o-check-circle')
-                ->visible(fn () => Auth::user()?->rol === 'super_admin' && $this->record->estado_publicacion === 'revision')
+                ->visible(fn () => Auth::user()?->canReviewConvocatorias() && $this->record->estado_publicacion === 'revision')
                 ->action(function () {
                     $this->record->update([
                         'estado_publicacion' => 'publicado',
@@ -34,7 +34,7 @@ class EditConvocatoria extends EditRecord
                 ->label('Rechazar Publicación')
                 ->color('danger')
                 ->icon('heroicon-o-x-circle')
-                ->visible(fn (\App\Models\Convocatoria $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                ->visible(fn (\App\Models\Convocatoria $record) => Auth::user()?->canReviewConvocatorias() && $record->estado_publicacion === 'revision')
                 ->schema([
                     \Filament\Forms\Components\Textarea::make('comentarios_revision')
                         ->label('Comentarios para el editor')
@@ -62,7 +62,7 @@ class EditConvocatoria extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        if (Auth::user()?->rol !== 'super_admin') {
+        if (!Auth::user()?->canReviewConvocatorias()) {
             if (\App\Models\Configuracion::requiereAprobacionConvocatorias()) {
                 $data['estado_publicacion'] = 'revision';
             }

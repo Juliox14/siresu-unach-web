@@ -15,7 +15,7 @@ class CreateEvento extends CreateRecord
     {
         if (
             \App\Models\Configuracion::requiereAprobacionEventos() && 
-            Auth::user()?->rol !== 'super_admin'
+            !Auth::user()?->canReviewEventos()
         ) {
             $data['estado_publicacion'] = 'revision';
         } else {

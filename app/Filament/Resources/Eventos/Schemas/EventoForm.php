@@ -66,7 +66,7 @@ class EventoForm
                                         /** @var \App\Models\User $user */
                                         $user = Auth::user();
 
-                                        return $user ? $user->rol !== 'super_admin' : false;
+                                        return $user ? !$user->hasAnyRole(['super_admin', 'admin']) : false;
                                     })
                                     ->dehydrated()
                                     ->required(),
@@ -229,7 +229,7 @@ class EventoForm
                                 ->helperText('El estado de publicación es gestionado por el administrador (si la revisión está activada).'),
                             Textarea::make('comentarios_revision')
                                 ->label('Motivo de Rechazo (Comentarios de revisión)')
-                                ->disabled(fn() => !Auth::user()?->rol === 'super_admin')
+                                ->disabled(fn() => !Auth::user()?->canReviewEventos())
                                 ->visible(fn(?\App\Models\Evento $record) => $record && $record->estado_publicacion === 'rechazado')
                                 ->columnSpanFull(),
                         ])

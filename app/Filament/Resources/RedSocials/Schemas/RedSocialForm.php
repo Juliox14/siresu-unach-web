@@ -26,7 +26,7 @@ class RedSocialForm
                         /** @var \App\Models\User $user */
                         $user = Auth::user();
 
-                        return $user ? ! $user->hasRole('super_admin') : false;
+                        return $user ? ! $user->hasAnyRole(['super_admin', 'admin']) : false;
                     })
                     ->dehydrated(),
 

@@ -15,7 +15,7 @@ class CreateConvocatoria extends CreateRecord
     {
         if (
             \App\Models\Configuracion::requiereAprobacionConvocatorias() && 
-            Auth::user()?->rol !== 'super_admin'
+            !Auth::user()?->canReviewConvocatorias()
         ) {
             $data['estado_publicacion'] = 'revision';
         } else {

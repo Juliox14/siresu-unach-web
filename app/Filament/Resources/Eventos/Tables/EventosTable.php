@@ -97,7 +97,7 @@ class EventosTable
                     ->label('Aprobar')
                     ->icon('heroicon-o-check')
                     ->color('success')
-                    ->visible(fn (\App\Models\Evento $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->visible(fn (\App\Models\Evento $record) => Auth::user()?->canReviewEventos() && $record->estado_publicacion === 'revision')
                     ->action(function (\App\Models\Evento $record) {
                         $record->update(['estado_publicacion' => 'publicado', 'comentarios_revision' => null]);
                         \Filament\Notifications\Notification::make()->title('Publicada')->success()->send();
@@ -106,7 +106,7 @@ class EventosTable
                     ->label('Rechazar')
                     ->icon('heroicon-o-x-mark')
                     ->color('danger')
-                    ->visible(fn (\App\Models\Evento $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                    ->visible(fn (\App\Models\Evento $record) => Auth::user()?->canReviewEventos() && $record->estado_publicacion === 'revision')
                     ->form([
                         Textarea::make('comentarios_revision')
                             ->label('Comentarios')

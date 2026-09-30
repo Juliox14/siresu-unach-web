@@ -19,7 +19,7 @@ class EditEvento extends EditRecord
                 ->label('Aprobar Publicación')
                 ->color('success')
                 ->icon('heroicon-o-check-circle')
-                ->visible(fn (\App\Models\Evento $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                ->visible(fn (\App\Models\Evento $record) => Auth::user()?->canReviewEventos() && $record->estado_publicacion === 'revision')
                 ->action(function () {
                     $this->record->update([
                         'estado_publicacion' => 'publicado',
@@ -33,7 +33,7 @@ class EditEvento extends EditRecord
                 ->label('Rechazar Publicación')
                 ->color('danger')
                 ->icon('heroicon-o-x-circle')
-                ->visible(fn (\App\Models\Evento $record) => Auth::user()?->rol === 'super_admin' && $record->estado_publicacion === 'revision')
+                ->visible(fn (\App\Models\Evento $record) => Auth::user()?->canReviewEventos() && $record->estado_publicacion === 'revision')
                 ->schema([
                     \Filament\Forms\Components\Textarea::make('comentarios_revision')
                         ->label('Comentarios para el editor')
@@ -61,7 +61,7 @@ class EditEvento extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        if (Auth::user()?->rol !== 'super_admin') {
+        if (!Auth::user()?->canReviewEventos()) {
             if (\App\Models\Configuracion::requiereAprobacionEventos()) {
                 $data['estado_publicacion'] = 'revision';
             }
