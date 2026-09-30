@@ -55,11 +55,11 @@ class AppServiceProvider extends ServiceProvider
         Departamento::observe(DepartamentoObserver::class);
 
         Lang::addLines([
-            'shield.nav.group' => 'Seguridad',
+            'filament-shield.nav.group' => 'Seguridad',
         ], 'es', 'filament-shield');
 
         Lang::addLines([
-            'shield.nav.group' => 'Seguridad',
+            'filament-shield.nav.group' => 'Seguridad',
         ], 'en', 'filament-shield');
     }
 }

@@ -45,6 +45,11 @@ class RoleResource extends Resource
     
     protected static string | UnitEnum | null $navigationGroup = 'Seguridad';
 
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return 'Seguridad';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return $schema
